@@ -42,22 +42,20 @@ public class Cell {
 
     // check if cell contains player
 //    public boolean isPlayer() {
-//        return object instanceof Player;
+//        return (object instanceof Player);
 //    }
 
     // check if cell contains engimon
 //    public boolean isEngimon() {
-//        return object instanceof Engimon;
+//        return (object instanceof Engimon);
 //    }
 
     //******* Other Behaviour *******//
     // move object from this cell to other cell
     public void moveObjectTo(Cell other) {
-        if (!this.isEmpty() && !other.isEmpty()) {
+        if (!this.isEmpty() && other != null && !other.isEmpty()) {
             other.setObject(object);
             this.setObject(null);
         }
     }
-
-
 }
