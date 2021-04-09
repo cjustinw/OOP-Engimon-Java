@@ -1,7 +1,10 @@
 package Map;
 
 public class Cell {
+    // cell type
     private CellType type;
+
+    // reference to object that contained in the cell
     private Cellable object;
 
     public Cell() {
