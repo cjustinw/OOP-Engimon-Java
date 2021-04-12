@@ -39,6 +39,7 @@ public class GamePanel extends JPanel implements ActionListener{
     static final int DELAY = 150;
     private static String grassPath = "sprites/grass.jpeg";
     private static String playerPath = "sprites/player/down1.png";
+    private static String aEngimonPath = "sprites/pokemon/charizard.png";
     private BufferedImage backSprite = null;
     private BufferedImage frontSprite = null;
     private boolean running = false;
@@ -48,8 +49,12 @@ public class GamePanel extends JPanel implements ActionListener{
     private int moveCounter = 1;
     Timer timer;
     
+    
+    /* Sementara buat testing */
     private int x = 10;
     private int y = 10;
+    private int eX = 10; 
+    private int eY = 9;
     
     GamePanel(){
         this.setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -75,14 +80,20 @@ public class GamePanel extends JPanel implements ActionListener{
         for(int i = 0; i < WIDTH/UNIT_SIZE; i++){
             for(int j = 0; j < HEIGHT/UNIT_SIZE; j++){
                 g.drawImage(backImg, i*UNIT_SIZE, j*UNIT_SIZE, this);
-                if(i == x && j == y) {
-                    try {
+                try {
+                    if(i == x && j == y){
                         frontSprite = ImageIO.read(new File(playerPath));
-                        Image frontImg = frontSprite.getScaledInstance(30, 30, Image.SCALE_DEFAULT);
-                        g.drawImage(frontImg, i*UNIT_SIZE, j*UNIT_SIZE, this);
-                    } catch (IOException e) {
-                        e.printStackTrace();
                     }
+                    else if (i == eX && j == eY) {
+                        frontSprite = ImageIO.read(new File(aEngimonPath));
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                if(frontSprite != null) {
+                    Image frontImg = frontSprite.getScaledInstance(30, 30, Image.SCALE_DEFAULT);
+                    g.drawImage(frontImg, i*UNIT_SIZE, j*UNIT_SIZE, this);
+                    frontSprite = null;
                 }
             }
         }
@@ -95,6 +106,7 @@ public class GamePanel extends JPanel implements ActionListener{
     private void move() {
         int xtmp = x;
         int ytmp = y;
+        boolean move = true;
         if(!prevMove.equals(currentMove)){
             moveCounter = 1;
         }
@@ -145,10 +157,13 @@ public class GamePanel extends JPanel implements ActionListener{
                 moveCounter++;
                 break;
             case " ":
+                move = false;
                 break;
         }
         direction = " ";
-        if(!checkCollisions(xtmp, ytmp)){
+        if(!checkCollisions(xtmp, ytmp)&& move){
+            eX = x;
+            eY = y;
             x = xtmp;
             y = ytmp;
         }
