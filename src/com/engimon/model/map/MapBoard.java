@@ -1,4 +1,4 @@
-package Map;
+package com.engimon.model.map;
 
 /* Map structure
         ----> width --->
