@@ -6,12 +6,8 @@
 package com.engimon.game;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,12 +16,8 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-import javax.swing.BorderFactory;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.Timer;
 
 import com.engimon.model.map.*;
@@ -41,15 +33,25 @@ public class GamePanel extends JPanel implements ActionListener{
     static final int HEIGHT = 600;
     static final int UNIT_SIZE = 30;
     static final int DELAY = 70;
+//    private static String mapPath = "resources/map.txt";
+//    private static String grassPath = "resources/sprites/map/grass.png";
+//    private static String seaPath = "resources/sprites/map/sea.png";
+//    private static String mountainPath = "resources/sprites/map/mountain.png";
+//    private static String tundraPath = "resources/sprites/map/tundra.png";
+//    private static String borderPath1 = "resources/sprites/map/1.png";
+//    private static String borderPath2 = "resources/sprites/map/2.png";
+//    private static String borderPath3 = "resources/sprites/map/3.png";
+//    private static String borderPath4 = "resources/sprites/map/4.png";
     private static String mapPath = "resources/map.txt";
-    private static String grassPath = "resources/sprites/map/grass.png";
-    private static String seaPath = "resources/sprites/map/sea.png";
-    private static String mountainPath = "resources/sprites/map/mountain.png";
+    private static String grassPath = "resources/sprites/map/grass.jpg";
+    private static String seaPath = "resources/sprites/map/sea.jpg";
+    private static String mountainPath = "resources/sprites/map/grass.jpg";
     private static String tundraPath = "resources/sprites/map/tundra.png";
-    private static String borderPath1 = "resources/sprites/map/1.png";
-    private static String borderPath2 = "resources/sprites/map/2.png";
-    private static String borderPath3 = "resources/sprites/map/3.png";
-    private static String borderPath4 = "resources/sprites/map/4.png";
+    private static String borderPath1 = "resources/sprites/map/1.jpg";
+    private static String borderPath2 = "resources/sprites/map/2.jpg";
+    private static String borderPath3 = "resources/sprites/map/3.jpg";
+    private static String borderPath4 = "resources/sprites/map/4.jpg";
+    private static String borderPath5 = "resources/sprites/map/5.jpg";
     private static String playerPath = "resources/sprites/player/down1.png";
     private static String aEngimonPath = "resources/sprites/pokemon/charizard.png";
     private BufferedImage grassSprite = null;
@@ -60,6 +62,7 @@ public class GamePanel extends JPanel implements ActionListener{
     private BufferedImage borderSprite2 = null;
     private BufferedImage borderSprite3 = null;
     private BufferedImage borderSprite4 = null;
+    private BufferedImage borderSprite5 = null;
     private BufferedImage frontSprite = null;
     private boolean running = false;
     private String direction = " ";
@@ -91,6 +94,7 @@ public class GamePanel extends JPanel implements ActionListener{
             borderSprite2 = ImageIO.read(new File(borderPath2));
             borderSprite3 = ImageIO.read(new File(borderPath3));
             borderSprite4 = ImageIO.read(new File(borderPath4));
+            borderSprite5 = ImageIO.read(new File(borderPath5));
         } catch(IOException e){
             e.printStackTrace();
         }
@@ -130,32 +134,22 @@ public class GamePanel extends JPanel implements ActionListener{
         Image borderImg2 = borderSprite2.getScaledInstance(30, 30, Image.SCALE_DEFAULT);
         Image borderImg3 = borderSprite3.getScaledInstance(30, 30, Image.SCALE_DEFAULT);
         Image borderImg4 = borderSprite4.getScaledInstance(30, 30, Image.SCALE_DEFAULT);
+        Image borderImg5 = borderSprite5.getScaledInstance(30, 30, Image.SCALE_DEFAULT);
         
         for(int i = 0; i < WIDTH/UNIT_SIZE; i++){
             for(int j = 0; j < HEIGHT/UNIT_SIZE; j++){
-                if(map[j][i] == '-'){
-                    g.drawImage(grassImg, i*UNIT_SIZE, j*UNIT_SIZE, this);
-                }
-                else if(map[j][i] == 'o'){
-                    g.drawImage(seaImg, i*UNIT_SIZE, j*UNIT_SIZE, this);
-                }
-                else if(map[j][i] == '^'){
-                    g.drawImage(mountainImg, i*UNIT_SIZE, j*UNIT_SIZE, this);
-                }
-                else if(map[j][i] == '~'){
-                    g.drawImage(tundraImg, i*UNIT_SIZE, j*UNIT_SIZE, this);
-                }
-                else if(map[j][i] == '1'){
-                    g.drawImage(borderImg1, i*UNIT_SIZE, j*UNIT_SIZE, this);
-                }
-                else if(map[j][i] == '2'){
-                    g.drawImage(borderImg2, i*UNIT_SIZE, j*UNIT_SIZE, this);
-                }
-                else if(map[j][i] == '3'){
-                    g.drawImage(borderImg3, i*UNIT_SIZE, j*UNIT_SIZE, this);
-                }
-                else if(map[j][i] == '4'){
-                    g.drawImage(borderImg4, i*UNIT_SIZE, j*UNIT_SIZE, this);
+                switch (map[j][i]) {
+                    case '-' -> g.drawImage(grassImg, i*UNIT_SIZE, j*UNIT_SIZE, this);
+                    case 'o' -> g.drawImage(seaImg, i*UNIT_SIZE, j*UNIT_SIZE, this);
+                    case '^' -> g.drawImage(mountainImg, i*UNIT_SIZE, j*UNIT_SIZE, this);
+                    case '~' -> g.drawImage(tundraImg, i*UNIT_SIZE, j*UNIT_SIZE, this);
+                    case '1' -> g.drawImage(borderImg1, i*UNIT_SIZE, j*UNIT_SIZE, this);
+                    case '2' -> g.drawImage(borderImg2, i*UNIT_SIZE, j*UNIT_SIZE, this);
+                    case '3' -> g.drawImage(borderImg3, i*UNIT_SIZE, j*UNIT_SIZE, this);
+                    case '4' -> g.drawImage(borderImg4, i*UNIT_SIZE, j*UNIT_SIZE, this);
+                    case '5' -> g.drawImage(borderImg5, i*UNIT_SIZE, j*UNIT_SIZE, this);
+                    default -> {
+                    }
                 }
                 try {
                     if(i == x && j == y){
@@ -165,7 +159,7 @@ public class GamePanel extends JPanel implements ActionListener{
                         frontSprite = ImageIO.read(new File(aEngimonPath));
                     }
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    // do nothing
                 }
                 if(frontSprite != null) {
                     Image frontImg = frontSprite.getScaledInstance(30, 30, Image.SCALE_DEFAULT);
@@ -247,8 +241,20 @@ public class GamePanel extends JPanel implements ActionListener{
     }
     
     private boolean checkCollisions(int xtmp, int ytmp) {
-        if(xtmp < 0 || xtmp > WIDTH/UNIT_SIZE - 1 || ytmp < 0 || ytmp > HEIGHT/UNIT_SIZE - 1){
+        if((xtmp < 0) || (xtmp > WIDTH/UNIT_SIZE - 1) || (ytmp < 0) || (ytmp > HEIGHT/UNIT_SIZE - 1)){
             return true;
+        }
+        else if(map[ytmp][xtmp] == '4') {
+            
+            return true;
+        }
+        else if(map[ytmp][xtmp] == '2' && currentMove.equals("L")){
+            return true;
+        }
+        else if(xtmp - 1 > 0){
+            if(map[ytmp][xtmp-1] == '2' && currentMove.equals("R")){
+                return true;
+            }
         }
         return false;
     }
