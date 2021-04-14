@@ -5,13 +5,15 @@
  */
 package com.engimon.game;
 
+import java.awt.GridLayout;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 
 /**
  *
  * @author Engimon.cpp
  */
-public class GameFrame extends JFrame{
+public class GameFrame extends JFrame {
     GameFrame(){
         this.add(new GamePanel());
         this.setTitle("Engimon");
@@ -21,5 +23,8 @@ public class GameFrame extends JFrame{
         this.setVisible(true);
         this.setLocationRelativeTo(null);
     }
-
+    
+    public static void main(String args[]) {
+        new Game();
+    }
 }

@@ -4,10 +4,10 @@
 //
 //class Inventory<T> {
 //    private int numOfElement;
-//    private List<Myinventory<T>> myinventory;
+//    private ArrayList<T> myinventory;
 //
 //    public Inventory(){
-//        myinventory = new List<Myinventory<T>>();
+//        myinventory = new ArrayList<T>();
 //        numOfElement = 0;
 //    }
 //
@@ -16,9 +16,8 @@
 //    }
 //    
 //    public void add(T elmt){
-//        myinventory = new List<Myinventory<T>>();
 //        myinventory.add(elmt);
-//        numOfElement = numOfElement + 1;
+//        numOfElement += 1;
 //    }
 //
 //    public void delAt(int idx){
@@ -27,6 +26,7 @@
 //        }
 //        else{
 //            myinventory.remove(idx);
+//            numOfElement -= 1;
 //        }
 //    }
 //
