@@ -4,7 +4,7 @@
 //
 //class Inventory<T> {
 //    private int numOfElement;
-//    private List<T> myinventory;
+//    private ArrayList<T> myinventory;
 //
 //    public Inventory(){
 //        myinventory = new ArrayList<T>();
