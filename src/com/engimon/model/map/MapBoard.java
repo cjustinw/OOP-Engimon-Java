@@ -1,4 +1,4 @@
-package Map;
+package com.engimon.model.map;
 
 /* Map structure
         ----> width --->
@@ -39,6 +39,7 @@ public class MapBoard {
     }
 
     public boolean isPositionValid(Point P) {
-        return P.getX() < SIZE_WIDTH && P.getY() < SIZE_LENGTH;
+        return P.getX() > 0 && P.getX() < SIZE_WIDTH
+                && P.getY() > 0 && P.getY() < SIZE_LENGTH;
     }
 }

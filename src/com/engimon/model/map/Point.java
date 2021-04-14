@@ -1,4 +1,4 @@
-package Map;
+package com.engimon.model.map;
 
 public class Point {
     private int x = 0;  //  default value
