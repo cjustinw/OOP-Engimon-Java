@@ -24,5 +24,4 @@ public class Point {
     public void setY(int newY) {
         y = newY;
     }
-
 }
