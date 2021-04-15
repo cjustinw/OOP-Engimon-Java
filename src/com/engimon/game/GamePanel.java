@@ -23,6 +23,7 @@ import javax.swing.Timer;
 import com.engimon.model.map.*;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import javax.swing.JFrame;
 
 /**
  *
@@ -32,7 +33,7 @@ public class GamePanel extends JPanel implements ActionListener{
     static final int WIDTH = 600;
     static final int HEIGHT = 600;
     static final int UNIT_SIZE = 30;
-    static final int DELAY = 70;
+    static final int DELAY = 75;
     private static String mapPath = "resources/map.txt";
     private static String grassPath = "resources/sprites/map/grass.png";
     private static String seaPath = "resources/sprites/map/sea.png";
@@ -60,6 +61,7 @@ public class GamePanel extends JPanel implements ActionListener{
     private String prevMove = " ";
     private String currentMove = " ";
     private int moveCounter = 1;
+    private boolean gameStat = true;
     Timer timer;
     
     
@@ -117,6 +119,10 @@ public class GamePanel extends JPanel implements ActionListener{
     }
     
     public void paintComponent(Graphics g) {
+        renderMap(g);
+    }
+    
+    private void renderMap(Graphics g) {
         Image grassImg = grassSprite.getScaledInstance(30, 30, Image.SCALE_DEFAULT);
         Image seaImg = seaSprite.getScaledInstance(30, 30, Image.SCALE_DEFAULT);
         Image mountainImg = mountainSprite.getScaledInstance(30, 30, Image.SCALE_DEFAULT);
@@ -126,7 +132,7 @@ public class GamePanel extends JPanel implements ActionListener{
         Image stairImg = stairSprite.getScaledInstance(30, 30, Image.SCALE_DEFAULT);
         Image rock_wallImg = rock_wallSprite.getScaledInstance(30, 30, Image.SCALE_DEFAULT);
         Image rock_streetImg = rock_streetSprite.getScaledInstance(30, 30, Image.SCALE_DEFAULT);
-        
+
         for(int i = 0; i < WIDTH/UNIT_SIZE; i++){
             for(int j = 0; j < HEIGHT/UNIT_SIZE; j++){
                 switch (map[j][i]) {
@@ -159,10 +165,10 @@ public class GamePanel extends JPanel implements ActionListener{
                 }
             }
         }
-//        for(int i = 0; i < WIDTH/UNIT_SIZE; i++) {
-//            g.drawLine(i*UNIT_SIZE, 0, i*UNIT_SIZE, WIDTH);
-//            g.drawLine(0, i*UNIT_SIZE, WIDTH, i*UNIT_SIZE);
-//        }
+    }
+    
+    private void renderBattle(Graphics g) {
+        
     }
     
     private void move() {
@@ -254,6 +260,7 @@ public class GamePanel extends JPanel implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if(running){
             move();
+//            System.out.println(x + " , " + y);
         }
         repaint();
     }
@@ -261,27 +268,40 @@ public class GamePanel extends JPanel implements ActionListener{
     public class MyKeyAdapter extends KeyAdapter {
         @Override
         public void keyPressed(KeyEvent e){
-            switch(e.getKeyCode()) {
-                case KeyEvent.VK_A:
-                    if(!direction.equals("R")) {
-                        direction = "L";
-                    }
-                    break;
-                case KeyEvent.VK_D:
-                    if(!direction.equals("L")) {
-                        direction = "R";
-                    }
-                    break;
-                case KeyEvent.VK_W:
-                    if(!direction.equals("D")) {
-                        direction = "U";
-                    }
-                    break;
-                case KeyEvent.VK_S:
-                    if(!direction.equals("U")) {
-                        direction = "D";
-                    }
-                    break;
+            if(gameStat){
+                switch(e.getKeyCode()) {
+                    case KeyEvent.VK_A:
+                        if(!direction.equals("R")) {
+                            direction = "L";
+                        }
+                        break;
+                    case KeyEvent.VK_D:
+                        if(!direction.equals("L")) {
+                            direction = "R";
+                        }
+                        break;
+                    case KeyEvent.VK_W:
+                        if(!direction.equals("D")) {
+                            direction = "U";
+                        }
+                        break;
+                    case KeyEvent.VK_S:
+                        if(!direction.equals("U")) {
+                            direction = "D";
+                        }
+                        break;
+                    case KeyEvent.VK_ESCAPE:
+//                        gameStat = false;
+                    
+                }
+            }
+            else{
+                switch(e.getKeyCode()) {
+                    case KeyEvent.VK_ESCAPE:
+                        gameStat = true;
+                        removeAll();
+                        updateUI();
+                }
             }
         }
     }
