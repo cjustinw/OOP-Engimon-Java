@@ -17,6 +17,15 @@ public class Skill {
         this.item = false;
         this.numOfItem = 0;
     }
+    
+    public Skill(int id, String name, int basePower, int masteryLevel){
+	    this.id = id;
+	    this.name = name;
+	    this.basePower = basePower;
+	    this.masteryLevel = masteryLevel;
+	    this.item = false;
+	    this.numOfItem = 0;
+    }
 
     /* Getter */
     public String getSkillName() {
