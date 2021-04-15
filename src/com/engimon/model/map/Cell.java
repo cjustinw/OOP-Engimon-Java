@@ -8,7 +8,8 @@ public class Cell {
     private Cellable object;
 
     public Cell() {
-
+        type = CellType.GRASSLAND;
+        object = null;
     }
 
     public Cell(CellType t, Cellable o) {
@@ -60,5 +61,29 @@ public class Cell {
             other.setObject(object);
             this.setObject(null);
         }
+    }
+
+    public char getSymbol() {
+        if (object == null) {
+            return switch (type) {
+                case GRASSLAND -> '-';
+                case SEA -> 'o';
+                case TUNDRA -> '~';
+                case MOUNTAINS -> '^';
+            };
+        }
+        return object.getSymbol();
+    }
+
+    public String getSprite() {
+        if (object == null) {
+            return switch (type) {
+                case GRASSLAND -> "resources/sprites/map/grass.png";
+                case SEA -> "resources/sprites/map/sea.png";
+                case TUNDRA -> "resources/sprites/map/tundra.png";
+                case MOUNTAINS -> "resources/sprites/map/mountain.png";
+            };
+        }
+        return object.getSprite();
     }
 }

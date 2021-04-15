@@ -13,6 +13,9 @@ package com.engimon.model.map;
       +-----------------+   V
 */
 
+import com.engimon.model.Engimon.Engimon;
+import com.engimon.model.Engimon.Entei;
+
 public class MapBoard {
 
     private static int SIZE_LENGTH = 30;
@@ -28,6 +31,9 @@ public class MapBoard {
         SIZE_LENGTH = length;
         SIZE_WIDTH = width;
         map = new Cell[SIZE_WIDTH][SIZE_LENGTH];
+        for (int i = 0; i < SIZE_LENGTH; i++) {
+            for (int j = 0; j < SIZE_WIDTH; j++) map[i][j] = new Cell();
+        }
     }
 
     public Cell at(int x, int y) {
@@ -41,5 +47,34 @@ public class MapBoard {
     public boolean isPositionValid(Point P) {
         return P.getX() > 0 && P.getX() < SIZE_WIDTH
                 && P.getY() > 0 && P.getY() < SIZE_LENGTH;
+    }
+
+    public void print() {
+        for (int x = 0; x < SIZE_WIDTH; x++) {
+            for (int y = 0; y < SIZE_LENGTH; y++) {
+                System.out.print(this.at(x,y).getSymbol());
+            }
+            System.out.println();
+        }
+    }
+
+    public void spawnEngimonAt(int x, int y) {
+        Engimon engimon = new Entei(); // buat coba2 dulu pake entei
+        this.at(x,y).setObject(engimon);
+    }
+
+    public void spawnEngimonAt(Point p){
+        spawnEngimonAt(p.getX(), p.getY());
+    }
+
+    public static void main(String[] args) {
+        // main buat driver
+        MapBoard map = new MapBoard(20,20);
+
+        map.print();
+
+        map.spawnEngimonAt(19,19);
+
+        map.print();
     }
 }
