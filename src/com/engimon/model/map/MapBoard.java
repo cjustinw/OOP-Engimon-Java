@@ -9,7 +9,7 @@ package com.engimon.model.map;
       |-----------------|  length
       |-----------------|   |
       |-----------------|   |
-      |(0,0)------------|   |
+      |(1,1)------------|   |
       +-----------------+   V
 */
 
@@ -27,6 +27,9 @@ public class MapBoard {
 
     public MapBoard() {
         map = new Cell[SIZE_LENGTH][SIZE_WIDTH];
+        for (int i = 0; i < SIZE_LENGTH; i++) {
+            for (int j = 0; j < SIZE_WIDTH; j++) map[i][j] = new Cell();
+        }
     }
 
     public MapBoard(int width, int length) {
@@ -39,7 +42,7 @@ public class MapBoard {
     }
 
     public int getSizeLength(){
-        return SIZE_LENGTH
+        return SIZE_LENGTH;
     }
 
     public int getSizeWidth() {
@@ -47,7 +50,7 @@ public class MapBoard {
     }
 
     public Cell at(int x, int y) {
-        return map[x][SIZE_LENGTH-y-1];
+        return map[SIZE_LENGTH-y][x-1];
     }
 
     public Cell at(Point P) {
@@ -60,8 +63,8 @@ public class MapBoard {
     }
 
     public void print() {
-        for (int x = 0; x < SIZE_WIDTH; x++) {
-            for (int y = 0; y < SIZE_LENGTH; y++) {
+        for (int x = 1; x <= SIZE_WIDTH; x++) {
+            for (int y = 1; y <= SIZE_LENGTH; y++) {
                 System.out.print(this.at(x,y).getSymbol());
             }
             System.out.println();

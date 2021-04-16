@@ -1,5 +1,7 @@
 package com.engimon.model.element;
 
+import com.engimon.model.map.Cell;
+
 public class Element {
     protected ElmtType Elmt;
 
@@ -15,4 +17,7 @@ public class Element {
         return this.Elmt;
     }
 
+    public boolean isAllowedTo(Cell cell) {
+        return true;
+    }
 }

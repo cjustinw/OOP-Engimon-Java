@@ -1,11 +1,15 @@
 package com.engimon.model.Engimon;
 
+import com.engimon.model.element.Element;
+import com.engimon.model.element.Fire;
+
 public class Entei extends Engimon {
     private char symbol = 'f';
     private String sprite = "resource/sprites/pokemon/entei.png";
 
     public Entei(){
-
+        super();
+        elements.add(new Fire());
     }
 
     @Override

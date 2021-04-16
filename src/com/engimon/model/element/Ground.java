@@ -1,5 +1,8 @@
 package com.engimon.model.element;
 
+import com.engimon.model.map.Cell;
+import com.engimon.model.map.CellType;
+
 public class Ground extends Element {
     public Ground() {
         super(ElmtType.GROUND);
@@ -16,5 +19,10 @@ public class Ground extends Element {
         default:
             return 1;
         }
+    }
+
+    @Override
+    public boolean isAllowedTo(Cell cell) {
+        return cell.getType() == CellType.GRASSLAND;
     }
 }

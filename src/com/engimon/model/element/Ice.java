@@ -1,5 +1,8 @@
 package com.engimon.model.element;
 
+import com.engimon.model.map.Cell;
+import com.engimon.model.map.CellType;
+
 public class Ice extends Element {
     public Ice() {
         super(ElmtType.ICE);
@@ -18,4 +21,8 @@ public class Ice extends Element {
         }
     }
 
+    @Override
+    public boolean isAllowedTo(Cell cell) {
+        return cell.getType() == CellType.TUNDRA;
+    }
 }

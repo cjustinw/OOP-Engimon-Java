@@ -11,7 +11,7 @@ public class Cell {
     private Cellable object;
 
     public Cell() {
-        type = CellType.GRASSLAND;
+        type = CellType.MOUNTAINS;
         object = null;
     }
 
@@ -60,7 +60,7 @@ public class Cell {
     //******* Other Behaviour *******//
     // move object from this cell to other cell
     public void moveObjectTo(Cell other) {
-        if (!this.isEmpty() && other != null && !other.isEmpty()) {
+        if (!this.isEmpty() && other != null && other.isEmpty()) {
             other.setObject(object);
             this.setObject(null);
         }

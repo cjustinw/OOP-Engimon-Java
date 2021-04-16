@@ -20,6 +20,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
+import com.engimon.model.StateController;
 import com.engimon.model.map.*;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -93,6 +94,7 @@ public class GamePanel extends JPanel implements ActionListener{
         }
         loadMap();
         startGame();
+
     }
     
     private void loadMap() {
@@ -116,6 +118,8 @@ public class GamePanel extends JPanel implements ActionListener{
         running = true;
         timer = new Timer(DELAY, this);
         timer.start();
+
+        (new StateController()).start();
     }
     
     public void paintComponent(Graphics g) {
