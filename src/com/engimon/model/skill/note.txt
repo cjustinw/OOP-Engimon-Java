@@ -1,0 +1,266 @@
+BlastBurn::BlastBurn() : Skill()
+{
+id = 1;
+name = "Blast Burn";
+basePower = 100;
+masteryLevel = 1;
+prereqElmt.push_back(new Fire());
+}
+
+Eruption::Eruption() : Skill()
+{
+id = 2;
+name = "Eruption";
+basePower = 200;
+masteryLevel = 1;
+prereqElmt.push_back(new Fire());
+}
+
+ThunderBolt::ThunderBolt() : Skill()
+{
+id = 3;
+name = "Thunder Bolt";
+basePower = 110;
+masteryLevel = 1;
+prereqElmt.push_back(new Electric());
+}
+
+Catastropika::Catastropika() : Skill()
+{
+id = 4;
+name = "Catastropika";
+basePower = 210;
+masteryLevel = 1;
+prereqElmt.push_back(new Electric());
+}
+
+Dig::Dig() : Skill()
+{
+id = 5;
+name = "Dig";
+basePower = 80;
+masteryLevel = 1;
+prereqElmt.push_back(new Ground());
+}
+
+Earthquake::Earthquake() : Skill()
+{
+id = 6;
+name = "Earthquake";
+basePower = 100;
+masteryLevel = 1;
+prereqElmt.push_back(new Ground());
+}
+
+WaterGun::WaterGun() : Skill()
+{
+id = 7;
+name = "Water Gun";
+basePower = 100;
+masteryLevel = 1;
+prereqElmt.push_back(new Water());
+}
+
+OceanicOperetta::OceanicOperetta() : Skill()
+{
+id = 8;
+name = "Oceanic Operetta";
+basePower = 195;
+masteryLevel = 1;
+prereqElmt.push_back(new Water());
+}
+
+FreezeShock::FreezeShock() : Skill()
+{
+id = 9;
+name = "Freeze Shock";
+basePower = 110;
+masteryLevel = 1;
+prereqElmt.push_back(new Ice());
+}
+
+IceBurn::IceBurn() : Skill()
+{
+id = 10;
+name = "Ice Burn";
+basePower = 210;
+masteryLevel = 1;
+prereqElmt.push_back(new Ice());
+}
+
+Charge::Charge() : Skill()
+{
+id = 11;
+name = "Charge";
+basePower = 100;
+masteryLevel = 1;
+prereqElmt.push_back(new Electric());
+}
+
+Mist::Mist() : Skill()
+{
+id = 12;
+name = "Mist";
+basePower = 130;
+masteryLevel = 1;
+prereqElmt.push_back(new Water());
+}
+
+MudShot::MudShot() : Skill()
+{
+id = 13;
+name = "Mud Shot";
+basePower = 90;
+masteryLevel = 1;
+prereqElmt.push_back(new Ground());
+}
+
+/_ Fire Type _/
+
+Ember::Ember() : Skill()
+{
+id = 14;
+name = "Ember";
+basePower = 40;
+masteryLevel = 1;
+prereqElmt.push_back(new Fire());
+prereqElmt.push_back(new Electric());
+}
+
+FireBlast::FireBlast() : Skill()
+{
+id = 15;
+name = "Fire Blast";
+basePower = 110;
+masteryLevel = 1;
+prereqElmt.push_back(new Fire());
+}
+
+FireFang::FireFang() : Skill()
+{
+id = 16;
+name = "Fire Fang";
+basePower = 65;
+masteryLevel = 1;
+prereqElmt.push_back(new Fire());
+}
+
+/_ Electric Type _/
+
+ElectroBall::ElectroBall() : Skill()
+{
+id = 17;
+name = "Electro Ball";
+basePower = 100;
+masteryLevel = 1;
+prereqElmt.push_back(new Electric());
+prereqElmt.push_back(new Fire());
+}
+
+ThunderShock::ThunderShock() : Skill()
+{
+id = 18;
+name = "Thunder Shock";
+basePower = 40;
+masteryLevel = 1;
+prereqElmt.push_back(new Electric());
+}
+
+VoltTackle::VoltTackle() : Skill()
+{
+id = 19;
+name = "Volt Tackle";
+basePower = 120;
+masteryLevel = 1;
+prereqElmt.push_back(new Electric());
+}
+
+/_ Ground Type _/
+
+BoneRush::BoneRush() : Skill()
+{
+id = 20;
+name = "Bone Rush";
+basePower = 50;
+masteryLevel = 1;
+prereqElmt.push_back(new Ground());
+}
+
+Buldoze::Buldoze() : Skill()
+{
+id = 21;
+name = "Buldoze";
+basePower = 90;
+masteryLevel = 1;
+prereqElmt.push_back(new Ground());
+}
+
+SandAttack::SandAttack() : Skill()
+{
+id = 22;
+name = "Sand Attack";
+basePower = 100;
+masteryLevel = 1;
+prereqElmt.push_back(new Ground());
+}
+
+/_ Water Type _/
+
+HydroCannon::HydroCannon() : Skill()
+{
+id = 23;
+name = "Hydro Cannon";
+basePower = 150;
+masteryLevel = 1;
+prereqElmt.push_back(new Water());
+prereqElmt.push_back(new Ice());
+}
+
+WaterSpout::WaterSpout() : Skill()
+{
+id = 24;
+name = "Water Spout";
+basePower = 150;
+masteryLevel = 1;
+prereqElmt.push_back(new Water());
+}
+
+WaterPulse::WaterPulse() : Skill()
+{
+id = 25;
+name = "Water Pulse";
+basePower = 60;
+masteryLevel = 1;
+prereqElmt.push_back(new Water());
+}
+
+/_ Ice Type _/
+
+IceHammer::IceHammer() : Skill()
+{
+id = 26;
+name = "Ice Hammer";
+basePower = 100;
+masteryLevel = 1;
+prereqElmt.push_back(new Ice());
+}
+
+IceShock::IceShock() : Skill()
+{
+id = 27;
+name = "Ice Shock";
+basePower = 50;
+masteryLevel = 1;
+prereqElmt.push_back(new Ice());
+prereqElmt.push_back(new Water());
+}
+
+FrostBreath::FrostBreath() : Skill()
+{
+id = 28;
+name = "Frost Breath";
+basePower = 80;
+masteryLevel = 1;
+prereqElmt.push_back(new Ice());
+prereqElmt.push_back(new Water());
+}
