@@ -36,5 +36,29 @@ abstract public class Engimon implements Cellable {
         position = new Point(pos);
     }
 
+    public Point getPosition() {
+        return position;
+    }
+
+    public void setPosition(Point position) {
+        this.position = position;
+    }
+
+    public void moveRight() {
+        this.position.addX();
+    }
+
+    public void moveLeft() {
+        this.position.subX();
+    }
+
+    public void moveUp() {
+        this.position.addY();
+    }
+
+    public void moveDown() {
+        this.position.subY();
+    }
+
     abstract public void interact();
 }

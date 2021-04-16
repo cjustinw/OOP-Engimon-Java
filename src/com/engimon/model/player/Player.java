@@ -1,19 +1,21 @@
-//package Player;
-//
+package com.engimon.model.player;
+
+import com.engimon.model.Engimon.Engimon;
 //import com.engimon.model.inventory.*;
-//
-//public class Player {
+import com.engimon.model.map.Point;
+
+public class Player {
 //    private Inventory engimonInventory;
 //    private Inventory skillInventory;
-//    private int maxSkillItem;
-//    private int maxInventory;
-//    private Point position;
-//    private Engimon activeEngimon;
-//
-//    public Player() {
-//
-//    }
-//
+    private int maxSkillItem;
+    private int maxInventory;
+    private Point position;
+    private Engimon activeEngimon;
+
+    public Player() {
+
+    }
+
 //    /* Getter */
 //    public int getNumOfAllItem() {
 //        int skillCount = 0;
@@ -30,11 +32,11 @@
 //    public int getNumOfEngimon() {
 //        return activeEngimon.getNumOfElement();
 //    }
-//
-//    public Engimon getActiveEngimon() {
-//        return activeEngimon;
-//    }
-//
+
+    public Engimon getActiveEngimon() {
+        return activeEngimon;
+    }
+
 //    public Engimon getEngimonByIndex(int idx) {
 //        if (idx >= engimonInventory.getNumOfElement()) {
 //            // throw ItemNotFoundException();
@@ -86,6 +88,24 @@
 //    }
 //
 //    /* Other Methods */
+
+    public void moveRight() {
+        this.position.addX();
+    }
+
+    public void moveLeft() {
+        this.position.subX();
+    }
+
+    public void moveUp() {
+        this.position.addY();
+    }
+
+    public void moveDown() {
+        this.position.subY();
+    }
+
+
 //    public void addEngimon(Engimon engimon) {
 //        engimon.setPosition(0, 0);
 //    }
@@ -180,4 +200,4 @@
 //            }
 //        }
 //    }
-//}
+}

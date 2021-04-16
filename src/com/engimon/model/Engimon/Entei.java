@@ -32,6 +32,4 @@ public class Entei extends Engimon {
         // sprite jg bisa berubah
         sprite = newS;
     }
-
-
 }

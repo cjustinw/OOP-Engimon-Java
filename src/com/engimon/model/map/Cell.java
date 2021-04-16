@@ -1,5 +1,8 @@
 package com.engimon.model.map;
 
+import com.engimon.model.Engimon.Engimon;
+import com.engimon.model.player.Player;
+
 public class Cell {
     // cell type
     private CellType type;
@@ -45,14 +48,14 @@ public class Cell {
     }
 
     // check if cell contains player
-//    public boolean isPlayer() {
-//        return (object instanceof Player);
-//    }
+    public boolean isPlayer() {
+        return (object instanceof Player);
+    }
 
     // check if cell contains engimon
-//    public boolean isEngimon() {
-//        return (object instanceof Engimon);
-//    }
+    public boolean isEngimon() {
+        return (object instanceof Engimon);
+    }
 
     //******* Other Behaviour *******//
     // move object from this cell to other cell
@@ -76,14 +79,11 @@ public class Cell {
     }
 
     public String getSprite() {
-        if (object == null) {
-            return switch (type) {
-                case GRASSLAND -> "resources/sprites/map/grass.png";
-                case SEA -> "resources/sprites/map/sea.png";
-                case TUNDRA -> "resources/sprites/map/tundra.png";
-                case MOUNTAINS -> "resources/sprites/map/mountain.png";
-            };
-        }
-        return object.getSprite();
+        return switch (type) {
+            case GRASSLAND -> "resources/sprites/map/grass.png";
+            case SEA -> "resources/sprites/map/sea.png";
+            case TUNDRA -> "resources/sprites/map/tundra.png";
+            case MOUNTAINS -> "resources/sprites/map/mountain.png";
+        };
     }
 }

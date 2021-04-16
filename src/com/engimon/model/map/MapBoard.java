@@ -16,6 +16,8 @@ package com.engimon.model.map;
 import com.engimon.model.Engimon.Engimon;
 import com.engimon.model.Engimon.Entei;
 
+import java.util.Random;
+
 public class MapBoard {
 
     private static int SIZE_LENGTH = 30;
@@ -24,7 +26,7 @@ public class MapBoard {
     private final Cell[][] map;
 
     public MapBoard() {
-        map = new Cell[SIZE_WIDTH][SIZE_LENGTH];
+        map = new Cell[SIZE_LENGTH][SIZE_WIDTH];
     }
 
     public MapBoard(int width, int length) {
@@ -34,6 +36,14 @@ public class MapBoard {
         for (int i = 0; i < SIZE_LENGTH; i++) {
             for (int j = 0; j < SIZE_WIDTH; j++) map[i][j] = new Cell();
         }
+    }
+
+    public int getSizeLength(){
+        return SIZE_LENGTH
+    }
+
+    public int getSizeWidth() {
+        return SIZE_WIDTH;
     }
 
     public Cell at(int x, int y) {
@@ -58,13 +68,13 @@ public class MapBoard {
         }
     }
 
-    public void spawnEngimonAt(int x, int y) {
-        Engimon engimon = new Entei(); // buat coba2 dulu pake entei
+    public void spawnEngimonAt(Engimon engimon, int x, int y) {
+//        Engimon engimon = new Entei(); // buat coba2 dulu pake entei
         this.at(x,y).setObject(engimon);
     }
 
-    public void spawnEngimonAt(Point p){
-        spawnEngimonAt(p.getX(), p.getY());
+    public void spawnEngimonAt(Engimon engimon, Point p){
+        spawnEngimonAt(engimon, p.getX(), p.getY());
     }
 
     public static void main(String[] args) {
@@ -73,7 +83,7 @@ public class MapBoard {
 
         map.print();
 
-        map.spawnEngimonAt(19,19);
+
 
         map.print();
     }

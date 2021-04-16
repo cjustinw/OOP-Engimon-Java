@@ -33,4 +33,20 @@ public class Point {
     public void setY(int newY) {
         y = newY;
     }
+
+    public void addX() {
+        this.x++;
+    }
+
+    public void addY(){
+        this.y++;
+    }
+
+    public void subX() {
+        this.x--;
+    }
+
+    public void subY(){
+        this.y--;
+    }
 }
