@@ -45,7 +45,7 @@ public class GameFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Engimon");
-        setPreferredSize(new java.awt.Dimension(750, 665));
+        setPreferredSize(new java.awt.Dimension(770, 665));
         setResizable(false);
 
         tabPanel.setBackground(new java.awt.Color(0, 153, 204));
@@ -75,7 +75,7 @@ public class GameFrame extends javax.swing.JFrame {
             .addGroup(optionPanelLayout.createSequentialGroup()
                 .addGap(205, 205, 205)
                 .addComponent(newGameButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(384, Short.MAX_VALUE))
+                .addContainerGap(383, Short.MAX_VALUE))
         );
 
         tabPanel.addTab("Option", optionPanel);
@@ -90,7 +90,7 @@ public class GameFrame extends javax.swing.JFrame {
         );
         gamePanelLayout.setVerticalGroup(
             gamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 637, Short.MAX_VALUE)
+            .addGap(0, 636, Short.MAX_VALUE)
         );
 
         tabPanel.addTab("Game", gamePanel);
@@ -105,7 +105,7 @@ public class GameFrame extends javax.swing.JFrame {
         );
         activeEngimonPanelLayout.setVerticalGroup(
             activeEngimonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 637, Short.MAX_VALUE)
+            .addGap(0, 636, Short.MAX_VALUE)
         );
 
         tabPanel.addTab("Active Engimon", activeEngimonPanel);
@@ -120,7 +120,7 @@ public class GameFrame extends javax.swing.JFrame {
         );
         inventoryPanelLayout.setVerticalGroup(
             inventoryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 637, Short.MAX_VALUE)
+            .addGap(0, 636, Short.MAX_VALUE)
         );
 
         tabPanel.addTab("Inventory", inventoryPanel);
@@ -133,7 +133,7 @@ public class GameFrame extends javax.swing.JFrame {
         );
         breedingPanelLayout.setVerticalGroup(
             breedingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 637, Short.MAX_VALUE)
+            .addGap(0, 636, Short.MAX_VALUE)
         );
 
         tabPanel.addTab("Breed Engimon", breedingPanel);
@@ -149,14 +149,14 @@ public class GameFrame extends javax.swing.JFrame {
         titlePanelLayout.setHorizontalGroup(
             titlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(titlePanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         titlePanelLayout.setVerticalGroup(
             titlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(titlePanelLayout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addGap(28, 28, 28)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -174,9 +174,9 @@ public class GameFrame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(tabPanel)
-                    .addComponent(titlePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(titlePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(tabPanel)))
         );
 
         pack();
