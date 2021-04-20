@@ -5,7 +5,8 @@ import java.util.*;
 class Inventory<T> {
     private ArrayList<T> myinventory;
     private int numOfElement;
-    Inventory(){
+    
+    public Inventory(){
         this.myinventory = new ArrayList<>();
         numOfElement = 0;
     }

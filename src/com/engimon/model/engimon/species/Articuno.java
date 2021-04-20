@@ -2,19 +2,20 @@ package com.engimon.model.engimon.species;
 
 import com.engimon.model.element.Ice;
 import com.engimon.model.engimon.Engimon;
+import com.engimon.model.skill.type.IceBurn;
 
 import java.awt.*;
 
 public class Articuno extends Engimon {
 
-    public Articuno(String name, int level, Point position) {
+    public Articuno(int level, Point position) {
         id = 11;
         species = "Articuno";
-        this.name = name;
+        name = "Articuno";
         this.level = level;
         this.position = position;
         elements.add(new Ice());
-//        skills.add(new IceBurn());
+        skills.add(new IceBurn(false));
     }
 
     public String interact() {

@@ -1,19 +1,24 @@
-//package Player;
-//
-//import com.engimon.model.inventory.*;
-//
-//public class Player {
-//    private Inventory engimonInventory;
-//    private Inventory skillInventory;
-//    private int maxSkillItem;
-//    private int maxInventory;
-//    private Point position;
-//    private Engimon activeEngimon;
-//
-//    public Player() {
-//
-//    }
-//
+package com.engimon.model.Player;
+
+import com.engimon.model.engimon.Engimon;
+import com.engimon.model.skill.Skill;
+import java.awt.Point;
+import java.util.List;
+
+public class Player {
+    private List<Engimon> engimonInventory;
+    private List<Skill> skillInventory;
+    private int maxSkillItem;
+    private int maxInventory;
+    private Point position;
+    private Engimon activeEngimon;
+
+    public Player() {
+
+    }
+    
+    
+
 //    /* Getter */
 //    public int getNumOfAllItem() {
 //        int skillCount = 0;
@@ -180,4 +185,4 @@
 //            }
 //        }
 //    }
-//}
+}

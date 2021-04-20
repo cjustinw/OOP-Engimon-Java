@@ -4,7 +4,7 @@ import java.util.Vector;
 
 import com.engimon.model.element.Element;
 
-public class Skill {
+public abstract class Skill {
     protected int id;
     protected String name;
     protected int basePower;
@@ -12,20 +12,6 @@ public class Skill {
     protected Boolean item;
     protected int numOfItem;
     protected Vector<Element> prereqElmt;
-
-    public Skill() {
-        this.item = false;
-        this.numOfItem = 0;
-    }
-    
-    public Skill(int id, String name, int basePower, int masteryLevel){
-	    this.id = id;
-	    this.name = name;
-	    this.basePower = basePower;
-	    this.masteryLevel = masteryLevel;
-	    this.item = false;
-	    this.numOfItem = 0;
-    }
 
     /* Getter */
     public String getSkillName() {
@@ -77,5 +63,22 @@ public class Skill {
     }
 
     /* Other method */
-    // public bool operator==(Skill&other);
+
+    public void addItem() {
+        if(item){
+            numOfItem++;
+        }
+        else{
+            // throw
+        }
+    }
+    
+    public void useItem() {
+        if(numOfItem > 0) {
+            numOfItem--;
+        }
+        else {
+            // destroy
+        }
+    }
 }

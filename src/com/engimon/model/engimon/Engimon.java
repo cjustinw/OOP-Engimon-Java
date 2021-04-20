@@ -51,6 +51,10 @@ public abstract class Engimon {
         return position;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public void setActive(boolean active) {
         this.active = active;
     }
@@ -95,6 +99,7 @@ public abstract class Engimon {
     public abstract String interact();
 
     public void learnSkill(Skill skill){
-        
+        skills.add(skill);
+        numOfSkill++;
     }
 }

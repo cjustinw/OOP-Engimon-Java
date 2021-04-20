@@ -3,20 +3,21 @@ package com.engimon.model.engimon.species;
 import com.engimon.model.element.Ground;
 import com.engimon.model.element.Water;
 import com.engimon.model.engimon.Engimon;
+import com.engimon.model.skill.type.MudShot;
 
 import java.awt.*;
 
 public class Swampert extends Engimon {
 
-    public Swampert(String name, int level, Point position) {
+    public Swampert(int level, Point position) {
         id = 13;
         species = "Swampert";
-        this.name = name;
+        name = "Swampert";
         this.level = level;
         this.position = position;
         elements.add(new Water());
         elements.add(new Ground());
-//        skills.add(new MudShot());
+        skills.add(new MudShot(false));
     }
 
     public String interact() {

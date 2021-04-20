@@ -2,19 +2,20 @@ package com.engimon.model.engimon.species;
 
 import com.engimon.model.element.Ice;
 import com.engimon.model.engimon.Engimon;
+import com.engimon.model.skill.type.FreezeShock;
 
 import java.awt.*;
 
 public class Glaceon extends Engimon {
 
-    public Glaceon(String name, int level, Point position) {
+    public Glaceon(int level, Point position) {
         id = 10;
         species = "Glaceon";
-        this.name = name;
+        name = "Glaceon";
         this.level = level;
         this.position = position;
         elements.add(new Ice());
-//        skills.add(new FreezeShock());
+        skills.add(new FreezeShock(false));
     }
 
     public String interact() {
