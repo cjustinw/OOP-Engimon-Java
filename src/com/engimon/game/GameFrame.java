@@ -5,8 +5,16 @@
  */
 package com.engimon.game;
 
+import com.engimon.model.engimon.Engimon;
+import com.engimon.model.engimon.species.Charmander;
+import com.engimon.model.map.MapBoard;
+import com.engimon.model.player.Player;
 import java.awt.BorderLayout;
+import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import javax.swing.JLabel;
 
 /**
  *
@@ -15,6 +23,7 @@ import java.awt.event.KeyEvent;
 public class GameFrame extends javax.swing.JFrame {
     
     private boolean running = false;
+    private Game game;
 
     /**
      * Creates new form Frame
@@ -22,6 +31,24 @@ public class GameFrame extends javax.swing.JFrame {
     public GameFrame() {
         initComponents();
         gamePanel.setLayout(new BorderLayout());
+        engimonImg.setLayout(new BorderLayout());
+    }
+    
+    public void newGame() {
+        game = new Game();
+        gamePanel.add(new GamePanel(game));
+        engimonImg.add(new EngimonPanel(game.getPlayer().getActiveEngimon()));
+        setEngimonProfile();
+    }
+    
+    public void setEngimonProfile() {
+        JLabel label = new JLabel("Test");
+        engimonProfile.setText("<html> "
+            + "Nama     :" + game.getPlayer().getActiveEngimon().getName() + "<br/>"
+            + "Spesies  :" + game.getPlayer().getActiveEngimon().getSpecies() + "<br/>"
+            + "Level    :" + game.getPlayer().getActiveEngimon().getLevel() + "<br/>"
+            + "EXP      :" + game.getPlayer().getActiveEngimon().getExp() + "<br/>"
+            + "</html>");
     }
 
     /**
@@ -38,6 +65,8 @@ public class GameFrame extends javax.swing.JFrame {
         newGameButton = new javax.swing.JButton();
         gamePanel = new javax.swing.JPanel();
         activeEngimonPanel = new javax.swing.JPanel();
+        engimonProfile = new javax.swing.JLabel();
+        engimonImg = new javax.swing.JPanel();
         inventoryPanel = new javax.swing.JPanel();
         breedingPanel = new javax.swing.JPanel();
         titlePanel = new javax.swing.JPanel();
@@ -45,10 +74,11 @@ public class GameFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Engimon");
-        setPreferredSize(new java.awt.Dimension(770, 665));
         setResizable(false);
 
-        tabPanel.setBackground(new java.awt.Color(0, 153, 204));
+        tabPanel.setBackground(new java.awt.Color(255, 255, 255));
+        tabPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        tabPanel.setFocusable(false);
         tabPanel.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
 
         optionPanel.setPreferredSize(new java.awt.Dimension(600, 600));
@@ -75,7 +105,7 @@ public class GameFrame extends javax.swing.JFrame {
             .addGroup(optionPanelLayout.createSequentialGroup()
                 .addGap(205, 205, 205)
                 .addComponent(newGameButton, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(383, Short.MAX_VALUE))
+                .addContainerGap(348, Short.MAX_VALUE))
         );
 
         tabPanel.addTab("Option", optionPanel);
@@ -90,22 +120,45 @@ public class GameFrame extends javax.swing.JFrame {
         );
         gamePanelLayout.setVerticalGroup(
             gamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 636, Short.MAX_VALUE)
+            .addGap(0, 601, Short.MAX_VALUE)
         );
 
         tabPanel.addTab("Game", gamePanel);
 
         activeEngimonPanel.setPreferredSize(new java.awt.Dimension(600, 600));
 
+        engimonProfile.setText("jLabel2");
+
+        javax.swing.GroupLayout engimonImgLayout = new javax.swing.GroupLayout(engimonImg);
+        engimonImg.setLayout(engimonImgLayout);
+        engimonImgLayout.setHorizontalGroup(
+            engimonImgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 168, Short.MAX_VALUE)
+        );
+        engimonImgLayout.setVerticalGroup(
+            engimonImgLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout activeEngimonPanelLayout = new javax.swing.GroupLayout(activeEngimonPanel);
         activeEngimonPanel.setLayout(activeEngimonPanelLayout);
         activeEngimonPanelLayout.setHorizontalGroup(
             activeEngimonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 600, Short.MAX_VALUE)
+            .addGroup(activeEngimonPanelLayout.createSequentialGroup()
+                .addGap(82, 82, 82)
+                .addComponent(engimonImg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(54, 54, 54)
+                .addComponent(engimonProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(90, Short.MAX_VALUE))
         );
         activeEngimonPanelLayout.setVerticalGroup(
             activeEngimonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 636, Short.MAX_VALUE)
+            .addGroup(activeEngimonPanelLayout.createSequentialGroup()
+                .addGap(93, 93, 93)
+                .addGroup(activeEngimonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(engimonImg, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(engimonProfile, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE))
+                .addContainerGap(335, Short.MAX_VALUE))
         );
 
         tabPanel.addTab("Active Engimon", activeEngimonPanel);
@@ -120,7 +173,7 @@ public class GameFrame extends javax.swing.JFrame {
         );
         inventoryPanelLayout.setVerticalGroup(
             inventoryPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 636, Short.MAX_VALUE)
+            .addGap(0, 601, Short.MAX_VALUE)
         );
 
         tabPanel.addTab("Inventory", inventoryPanel);
@@ -133,10 +186,12 @@ public class GameFrame extends javax.swing.JFrame {
         );
         breedingPanelLayout.setVerticalGroup(
             breedingPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 636, Short.MAX_VALUE)
+            .addGap(0, 601, Short.MAX_VALUE)
         );
 
         tabPanel.addTab("Breed Engimon", breedingPanel);
+
+        tabPanel.setSelectedComponent(optionPanel);
 
         titlePanel.setBackground(new java.awt.Color(0, 153, 153));
 
@@ -179,13 +234,15 @@ public class GameFrame extends javax.swing.JFrame {
                     .addComponent(tabPanel)))
         );
 
+        tabPanel.getAccessibleContext().setAccessibleDescription("");
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void newGameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newGameButtonActionPerformed
         // TODO add your handling code here:
         if(!running){
-            gamePanel.add(new GamePanel());
+            newGame();
             running = true;
         }
     }//GEN-LAST:event_newGameButtonActionPerformed
@@ -231,6 +288,8 @@ public class GameFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel activeEngimonPanel;
     private javax.swing.JPanel breedingPanel;
+    private javax.swing.JPanel engimonImg;
+    private javax.swing.JLabel engimonProfile;
     private javax.swing.JPanel gamePanel;
     private javax.swing.JPanel inventoryPanel;
     private javax.swing.JLabel jLabel1;

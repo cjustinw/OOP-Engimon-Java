@@ -5,10 +5,7 @@
  */
 package com.engimon.game;
 
-
 import com.engimon.model.player.Player;
-import com.engimon.model.engimon.Engimon;
-import com.engimon.model.engimon.species.*;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -65,16 +62,18 @@ public class GamePanel extends JPanel implements ActionListener{
     private boolean gameStat = true;
     Timer timer;
     
-    
     /* Sementara buat testing */
+    
+    private Game game;
     private Player player;
     private MapBoard map;
     
-    GamePanel(){
+    GamePanel(Game game){
         panelConfig();
         readSprite();
-        loadMap();
-        createPlayer();
+        this.game = game;
+        player = game.getPlayer();
+        map = game.getMap();
         startGame();
     }
     
@@ -99,17 +98,6 @@ public class GamePanel extends JPanel implements ActionListener{
         } catch(IOException e){
             e.printStackTrace();
         }
-    }
-    
-    private void loadMap() {
-        map = new MapBoard();
-    }
-    
-    private void createPlayer() {
-        player = new Player(new Point(10,10));
-        Engimon engimon = new Charmander(1, new Point(10,9));
-        player.addEngimon(engimon);
-        player.setActiveEngimon(engimon);
     }
     
     public void startGame() {
@@ -149,11 +137,8 @@ public class GamePanel extends JPanel implements ActionListener{
                     }
                 }
                 try {
-                    if(i == player.getPosition().x && j == player.getPosition().y){
-                        frontSprite = ImageIO.read(new File(player.getImagePath()));
-                    }
-                    else if (i == player.getActiveEngimon().getPosition().x && j == player.getActiveEngimon().getPosition().y) {
-                        frontSprite = ImageIO.read(new File(player.getActiveEngimon().getImagePath()));
+                    if(map.at(i,j).getObject() != null){
+                        frontSprite = ImageIO.read(new File(map.at(i,j).getObject().getImagePath()));
                     }
                 } catch (IOException e) {
                     // do nothing
@@ -207,8 +192,11 @@ public class GamePanel extends JPanel implements ActionListener{
         }
         direction = " ";
         if(!checkCollisions(xtmp, ytmp)&& move){
+            map.at(player.getActiveEngimon().getPosition()).setObject(null);
             player.getActiveEngimon().setPosition(player.getPosition());
+            map.at(player.getActiveEngimon().getPosition()).setObject(player.getActiveEngimon());
             player.setPosition(new Point(xtmp, ytmp));
+            map.at(player.getPosition()).setObject(player);
         }
     }
     
@@ -234,7 +222,6 @@ public class GamePanel extends JPanel implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if(running){
             move();
-//            System.out.println(x + " , " + y);
         }
         repaint();
     }

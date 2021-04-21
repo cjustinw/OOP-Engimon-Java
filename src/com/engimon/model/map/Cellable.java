@@ -5,4 +5,6 @@ public interface Cellable {
 
     // objek harus memiliki symbol/sprite
     char getSymbol();
+    
+    String getImagePath();
 }
