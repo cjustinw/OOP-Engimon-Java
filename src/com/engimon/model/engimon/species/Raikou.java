@@ -17,6 +17,10 @@ public class Raikou extends Engimon {
         elements.add(new Electric());
         skills.add(new Catastropika(false));
     }
+    
+    public String getImagePath() {
+        return "resources/sprites/pokemon/charizard.png";
+    }
 
     public String interact() {
         return "Rrrrrooowrrr~";

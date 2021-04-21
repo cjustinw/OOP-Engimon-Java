@@ -19,6 +19,10 @@ public class Rotom extends Engimon {
         elements.add(new Electric());
         skills.add(new Charge(false));
     }
+    
+    public String getImagePath() {
+        return "resources/sprites/pokemon/charizard.png";
+    }
 
     public String interact() {
         return "Rotom~";

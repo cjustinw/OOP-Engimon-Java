@@ -17,6 +17,10 @@ public class Squirtle extends Engimon {
         elements.add(new Water());
         skills.add(new WaterGun(false));
     }
+    
+    public String getImagePath() {
+        return "resources/sprites/pokemon/charizard.png";
+    }
 
     public String interact() {
         return "Squirtle~";

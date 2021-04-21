@@ -17,6 +17,10 @@ public class Groudon extends Engimon {
         elements.add(new Ground());
         skills.add(new Earthquake(false));
     }
+    
+    public String getImagePath() {
+        return "resources/sprites/pokemon/charizard.png";
+    }
 
     public String interact() {
         return "Rrrrraaaaaaa~";

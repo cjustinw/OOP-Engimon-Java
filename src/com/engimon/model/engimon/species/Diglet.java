@@ -17,6 +17,10 @@ public class Diglet extends Engimon {
         elements.add(new Ground());
         skills.add(new Dig(false));
     }
+    
+    public String getImagePath() {
+        return "resources/sprites/pokemon/charizard.png";
+    }
 
     public String interact() {
         return "Didididi~ Diglet";

@@ -17,6 +17,10 @@ public class Glaceon extends Engimon {
         elements.add(new Ice());
         skills.add(new FreezeShock(false));
     }
+    
+    public String getImagePath() {
+        return "resources/sprites/pokemon/charizard.png";
+    }
 
     public String interact() {
         return "Glceon~";

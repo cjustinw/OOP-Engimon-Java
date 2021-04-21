@@ -2,6 +2,7 @@ package com.engimon.model.skill.type;
 
 import com.engimon.model.element.*;
 import com.engimon.model.skill.Skill;
+import java.util.ArrayList;
 
 public class ElectroBall extends Skill{
 	public ElectroBall(boolean item){
@@ -16,6 +17,7 @@ public class ElectroBall extends Skill{
             else{
                 numOfItem = 0;
             }
+            prereqElmt = new ArrayList<>();
             prereqElmt.add(new Electric());
             prereqElmt.add(new Fire());
 	}

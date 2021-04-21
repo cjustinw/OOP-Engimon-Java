@@ -17,6 +17,10 @@ public class Entei extends Engimon {
         elements.add(new Fire());
         skills.add(new Eruption(false));
     }
+    
+    public String getImagePath() {
+        return "resources/sprites/pokemon/charizard.png";
+    }
 
     public String interact() {
         return "Rrrrraaawrrrr~";

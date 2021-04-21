@@ -2,6 +2,7 @@ package com.engimon.model.skill.type;
 
 import com.engimon.model.element.*;
 import com.engimon.model.skill.Skill;
+import java.util.ArrayList;
 
 public class FireFang extends Skill{
 	public FireFang(boolean item){
@@ -16,6 +17,7 @@ public class FireFang extends Skill{
             else{
                 numOfItem = 0;
             }
+            prereqElmt = new ArrayList<>();
             prereqElmt.add(new Fire());
 	}
 }

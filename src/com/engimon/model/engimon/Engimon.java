@@ -4,9 +4,10 @@ import java.awt.*;
 import java.util.List;
 
 import com.engimon.model.element.*;
+import com.engimon.model.map.Cellable;
 import com.engimon.model.skill.*;
 
-public abstract class Engimon {
+public abstract class Engimon implements Cellable {
     protected int id;
     protected String name;
     protected String species;
@@ -18,6 +19,7 @@ public abstract class Engimon {
     private int exp;
     private int cumulativeExp;
     private boolean active;
+    private String imagePath;
 
     public int getId() {
         return id;
@@ -54,25 +56,38 @@ public abstract class Engimon {
     public void setName(String name) {
         this.name = name;
     }
-
-    public void setActive(boolean active) {
-        this.active = active;
+    
+    public void setPosition(Point P) {
+        position = new Point(P);
     }
 
-    public void moveToNorth() {
-        position.y--;
+    public void setActive(Point pos) {
+        if(!active) {
+            position = new Point(pos);
+            active = true;
+        }
+        else {
+            //throw
+        }
     }
-
-    public void moveToSouth() {
-        position.y++;
+    
+    public void setActive() {
+        if(!active) {
+            active = true;
+        }
+        else {
+            //throw
+        }
     }
-
-    public void moveToWest() {
-        position.x--;
-    }
-
-    public void moveToEast() {
-        position.x++;
+    
+    public void setInactive() {
+        if(active) {
+            position = new Point(-1,-1);
+            active = false;
+        }
+        else{
+            // throw
+        }
     }
 
     /* return true jika naik level */
@@ -97,9 +112,15 @@ public abstract class Engimon {
     }
 
     public abstract String interact();
+    
+    public abstract String getImagePath();
 
     public void learnSkill(Skill skill){
         skills.add(skill);
         numOfSkill++;
+    }
+    
+    public char getSymbol() {
+        return 'E';
     }
 }

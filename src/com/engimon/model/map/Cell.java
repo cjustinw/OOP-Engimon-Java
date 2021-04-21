@@ -8,12 +8,12 @@ public class Cell {
     private Cellable object;
 
     public Cell() {
-
+        
     }
 
-    public Cell(CellType t, Cellable o) {
+    public Cell(CellType t) {
         type = t;
-        object = o;
+        object = null;
     }
 
     //******* Getters & Setters *******//

@@ -2,6 +2,7 @@ package com.engimon.model.skill.type;
 
 import com.engimon.model.skill.Skill;
 import com.engimon.model.element.*;
+import java.util.ArrayList;
 
 public class Buldoze extends Skill{
 	public Buldoze(boolean item){
@@ -16,6 +17,7 @@ public class Buldoze extends Skill{
             else{
                 numOfItem = 0;
             }
+            prereqElmt = new ArrayList<>();
             prereqElmt.add(new Ground());
 	}
 }

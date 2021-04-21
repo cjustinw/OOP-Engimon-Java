@@ -2,6 +2,7 @@ package com.engimon.model.skill.type;
 
 import com.engimon.model.skill.Skill;
 import com.engimon.model.element.*;
+import java.util.ArrayList;
 
 public class BlastBurn extends Skill{
 	public BlastBurn(boolean item){
@@ -16,6 +17,7 @@ public class BlastBurn extends Skill{
             else{
                 numOfItem = 0;
             }
+            prereqElmt = new ArrayList<>();
             prereqElmt.add(new Fire());
 	}
 }

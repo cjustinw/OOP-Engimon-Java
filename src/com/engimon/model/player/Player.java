@@ -1,23 +1,142 @@
-package com.engimon.model.Player;
+package com.engimon.model.player;
 
 import com.engimon.model.engimon.Engimon;
+import com.engimon.model.map.Cellable;
 import com.engimon.model.skill.Skill;
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.List;
 
-public class Player {
+public class Player implements Cellable{
     private List<Engimon> engimonInventory;
     private List<Skill> skillInventory;
     private int maxSkillItem;
     private int maxInventory;
+    private int numOfItem;
     private Point position;
     private Engimon activeEngimon;
+    private String imagePath;
+    private String imageDownPath;
+    private String imageDown1Path;
+    private String imageDown2Path;
+    private String imageUp1Path;
+    private String imageUp2Path;
+    private String imageLeft1Path;
+    private String imageLeft2Path;
+    private String imageRight1Path;
+    private String imageRight2Path;
 
-    public Player() {
-
+    public Player(Point pos) {
+        position = new Point(pos.x, pos.y);
+        engimonInventory = new ArrayList<>();
+        skillInventory = new ArrayList<>();
+        maxSkillItem = 4;
+        maxInventory = 30;
+        numOfItem = 0;
+        activeEngimon = null;
+        imageDownPath = "resources/sprites/player/down1.png";
+        imageDown1Path = "resources/sprites/player/down2.png";
+        imageDown2Path = "resources/sprites/player/down3.png";
+        imageUp1Path = "resources/sprites/player/up2.png";
+        imageUp2Path = "resources/sprites/player/up2.png";
+        imageLeft1Path = "resources/sprites/player/left2.png";
+        imageLeft2Path = "resources/sprites/player/left3.png";
+        imageRight1Path = "resources/sprites/player/right2.png";
+        imageRight2Path = "resources/sprites/player/right3.png";
+        imagePath = imageDownPath;
     }
     
+    public Point getPosition() {
+        return position;
+    }
     
+    public void setPosition(Point P) {
+        position = new Point(P);
+    }
+    
+    public String getImagePath() {
+        return imagePath;
+    }
+    
+    public void setImagePath(String S, int n) {
+        if(S.equals("U")){
+            if(n == 1){
+                imagePath = "resources/sprites/player/up2.png";
+            }
+            else {
+                imagePath = "resources/sprites/player/up3.png";
+            }
+        }
+        else if(S.equals("D")) {
+            if(n == 1){
+                imagePath = "resources/sprites/player/down2.png";
+            }
+            else {
+                imagePath = "resources/sprites/player/down3.png";
+            }
+        }
+        else if(S.equals("L")){
+            if(n == 1){
+                imagePath = "resources/sprites/player/left2.png";
+            }
+            else {
+                imagePath = "resources/sprites/player/left3.png";
+            }
+        }
+        else if(S.equals("R")){
+            if(n == 1){
+                imagePath = "resources/sprites/player/right2.png";
+            }
+            else {
+                imagePath = "resources/sprites/player/right3.png";
+            }
+        }
+    }
+    
+    public boolean isInventoryFull() {
+        return numOfItem >= maxInventory;
+    }
+    
+    public void addEngimon(Engimon E) {
+        if(!isInventoryFull()) {
+            engimonInventory.add(E);
+            numOfItem++;
+        }
+        else {
+            // throw
+        }
+    }
+    
+    public void addSkillItem(Skill S) {
+        if(!isInventoryFull()) {
+            skillInventory.add(S);
+            numOfItem++;
+        }
+        else {
+            // throw
+        }
+    }
+    
+    public void setActiveEngimon(Engimon E) {
+        if(activeEngimon != null){
+            Engimon tmp = activeEngimon;
+            E.setActive(tmp.getPosition());
+            activeEngimon = E;
+            tmp.setInactive();
+        }
+        else {
+            E.setActive();
+            activeEngimon = E;
+        }
+    }
+    
+    public Engimon getActiveEngimon() {
+        return activeEngimon;
+    }
+    
+    public char getSymbol() {
+        return 'P';
+    }
 
 //    /* Getter */
 //    public int getNumOfAllItem() {

@@ -17,6 +17,10 @@ public class Pikachu extends Engimon {
         elements.add(new Electric());
         skills.add(new ThunderBolt(false));
     }
+    
+    public String getImagePath() {
+        return "resources/sprites/pokemon/charizard.png";
+    }
 
     public String interact() {
         return "Pika~ Pika~";

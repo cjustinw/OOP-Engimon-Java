@@ -17,6 +17,10 @@ public class Gyarados extends Engimon {
         elements.add(new Water());
         skills.add(new OceanicOperetta(false));
     }
+    
+    public String getImagePath() {
+        return "resources/sprites/pokemon/charizard.png";
+    }
 
     public String interact() {
         return "Rrrrroooooo~";

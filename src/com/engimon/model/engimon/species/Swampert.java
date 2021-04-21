@@ -19,6 +19,10 @@ public class Swampert extends Engimon {
         elements.add(new Ground());
         skills.add(new MudShot(false));
     }
+    
+    public String getImagePath() {
+        return "resources/sprites/pokemon/charizard.png";
+    }
 
     public String interact() {
         return "Swampert~";

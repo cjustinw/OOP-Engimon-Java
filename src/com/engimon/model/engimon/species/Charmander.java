@@ -5,6 +5,7 @@ import com.engimon.model.engimon.Engimon;
 import com.engimon.model.skill.type.BlastBurn;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Charmander extends Engimon {
 
@@ -14,8 +15,14 @@ public class Charmander extends Engimon {
         name = "Charmander";
         this.level = level;
         this.position = position;
+        elements = new ArrayList<>();
         elements.add(new Fire());
+        skills = new ArrayList<>();
         skills.add(new BlastBurn(false));
+    }
+    
+    public String getImagePath() {
+        return "resources/sprites/pokemon/charizard.png";
     }
 
     public String interact() {

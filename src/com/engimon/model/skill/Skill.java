@@ -3,6 +3,7 @@ package com.engimon.model.skill;
 import java.util.Vector;
 
 import com.engimon.model.element.Element;
+import java.util.List;
 
 public abstract class Skill {
     protected int id;
@@ -11,7 +12,7 @@ public abstract class Skill {
     protected int masteryLevel;
     protected Boolean item;
     protected int numOfItem;
-    protected Vector<Element> prereqElmt;
+    protected List<Element> prereqElmt;
 
     /* Getter */
     public String getSkillName() {
@@ -34,7 +35,7 @@ public abstract class Skill {
         return this.masteryLevel;
     }
 
-    public Vector<Element> getPrereqElmt() {
+    public List<Element> getPrereqElmt() {
         return this.prereqElmt;
     }
 
