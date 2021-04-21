@@ -44,6 +44,14 @@ public abstract class Engimon implements Cellable {
     public int getCumulativeExp() {
         return cumulativeExp;
     }
+    
+    public List<Skill> getSkills() {
+        return skills;
+    }
+    
+    public List<Element> getElements() {
+        return elements;
+    }
 
     public boolean getActive() {
         return active;

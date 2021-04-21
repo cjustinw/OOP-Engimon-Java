@@ -35,7 +35,6 @@ public class MapBoard {
             for(int i = 0; i < SIZE_LENGTH; i++){
                 String str = sc.next();
                 for(int j = 0; j < SIZE_WIDTH; j++) {
-                    System.out.print(str.charAt(j));
                     switch (str.charAt(j)) {
                         case 'o' -> map[i][j] = new Cell(CellType.SEA);
                         case '-' -> map[i][j] = new Cell(CellType.GRASSLAND);
@@ -50,7 +49,6 @@ public class MapBoard {
                         }
                     }
                 }
-                System.out.println("");
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
