@@ -131,4 +131,5 @@ public abstract class Engimon implements Cellable {
     public char getSymbol() {
         return 'E';
     }
+    
 }

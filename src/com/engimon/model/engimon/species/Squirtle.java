@@ -5,6 +5,7 @@ import com.engimon.model.engimon.Engimon;
 import com.engimon.model.skill.type.WaterGun;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Squirtle extends Engimon {
 
@@ -14,7 +15,9 @@ public class Squirtle extends Engimon {
         name = "Squirtle";
         this.level = level;
         this.position = position;
+        elements = new ArrayList<>();
         elements.add(new Water());
+        skills = new ArrayList<>();
         skills.add(new WaterGun(false));
     }
     

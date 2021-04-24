@@ -6,6 +6,7 @@ import com.engimon.model.engimon.Engimon;
 import com.engimon.model.skill.type.Mist;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Lapras extends Engimon {
 
@@ -15,8 +16,10 @@ public class Lapras extends Engimon {
         name = "Lapras";
         this.level = level;
         this.position = position;
+        elements = new ArrayList<>();
         elements.add(new Water());
         elements.add((new Ice()));
+        skills = new ArrayList<>();
         skills.add(new Mist(false));
     }
     

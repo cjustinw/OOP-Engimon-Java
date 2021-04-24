@@ -42,6 +42,10 @@ public class Cell {
     public boolean isEmpty() {
         return object == null;
     }
+    
+    public boolean isFull() {
+        return object != null;
+    }
 
     // check if cell contains player
 //    public boolean isPlayer() {

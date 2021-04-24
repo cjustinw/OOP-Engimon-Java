@@ -58,6 +58,10 @@ public class Player implements Cellable{
         return imagePath;
     }
     
+    public Engimon getEngimonAtIndex(int n) {
+        return engimonInventory.get(n);
+    }
+    
     public void setImagePath(String S, int n) {
         if(S.equals("U")){
             if(n == 1){
@@ -137,7 +141,7 @@ public class Player implements Cellable{
     public char getSymbol() {
         return 'P';
     }
-
+    
 //    /* Getter */
 //    public int getNumOfAllItem() {
 //        int skillCount = 0;

@@ -34,6 +34,7 @@ public class MapBoard {
             
             for(int i = 0; i < SIZE_LENGTH; i++){
                 String str = sc.next();
+                
                 for(int j = 0; j < SIZE_WIDTH; j++) {
                     switch (str.charAt(j)) {
                         case 'o' -> map[i][j] = new Cell(CellType.SEA);
@@ -64,6 +65,27 @@ public class MapBoard {
     }
 
     public boolean isPositionValid(Point P) {
-        return P.x < SIZE_WIDTH && P.y < SIZE_LENGTH;
+        if((P.x < 0) || (P.x > SIZE_WIDTH - 1) || (P.y < 0) || (P.y > SIZE_LENGTH - 1)){
+            return false;
+        }
+        else if(at(P.x, P.y).getType().equals(CellType.ROCK_WALL)){
+            return false;
+        }
+        return true;
+    }
+
+    public void printMap() {
+        for(int i = 0; i < 20; i++){
+            for(int j = 0; j < 20; j++){
+                if(at(j,i).isFull()){
+                    System.out.print("O");
+                }
+                else{
+                    System.out.print("-");
+                }
+            }
+            System.out.println();
+        }
+        System.out.println();
     }
 }

@@ -5,6 +5,7 @@ import com.engimon.model.engimon.Engimon;
 import com.engimon.model.skill.type.Catastropika;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Raikou extends Engimon {
 
@@ -14,7 +15,9 @@ public class Raikou extends Engimon {
         name = "Raikou";
         this.level = level;
         this.position = position;
+        elements = new ArrayList<>();
         elements.add(new Electric());
+        skills = new ArrayList<>();
         skills.add(new Catastropika(false));
     }
     

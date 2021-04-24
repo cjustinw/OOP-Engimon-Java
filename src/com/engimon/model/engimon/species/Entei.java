@@ -5,6 +5,7 @@ import com.engimon.model.engimon.Engimon;
 import com.engimon.model.skill.type.Eruption;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Entei extends Engimon {
 
@@ -14,7 +15,9 @@ public class Entei extends Engimon {
         name = "Entei";
         this.level = level;
         this.position = position;
+        elements = new ArrayList<>();
         elements.add(new Fire());
+        skills = new ArrayList<>();
         skills.add(new Eruption(false));
     }
     

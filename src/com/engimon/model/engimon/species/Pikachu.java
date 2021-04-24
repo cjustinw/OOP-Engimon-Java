@@ -5,6 +5,7 @@ import com.engimon.model.engimon.Engimon;
 import com.engimon.model.skill.type.ThunderBolt;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Pikachu extends Engimon {
 
@@ -14,7 +15,9 @@ public class Pikachu extends Engimon {
         name = "Pikachu";
         this.level = level;
         this.position = position;
+        elements = new ArrayList<>();
         elements.add(new Electric());
+        skills = new ArrayList<>();
         skills.add(new ThunderBolt(false));
     }
     

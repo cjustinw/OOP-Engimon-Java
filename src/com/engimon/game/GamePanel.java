@@ -23,8 +23,6 @@ import javax.swing.Timer;
 
 import com.engimon.model.map.*;
 import java.awt.Point;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
 
 /**
  *
@@ -34,7 +32,7 @@ public class GamePanel extends JPanel implements ActionListener{
     static final int WIDTH = 600;
     static final int HEIGHT = 600;
     static final int UNIT_SIZE = 30;
-    static final int DELAY = 75;
+    static final int DELAY = 60;
     private static String grassPath = "resources/sprites/map/grass.png";
     private static String seaPath = "resources/sprites/map/sea.png";
     private static String mountainPath = "resources/sprites/map/mountain.png";
@@ -55,10 +53,7 @@ public class GamePanel extends JPanel implements ActionListener{
     private BufferedImage rock_streetSprite = null;
     private BufferedImage frontSprite = null;
     private boolean running = false;
-    private String direction = " ";
-    private String prevMove = " ";
-    private String currentMove = " ";
-    private int moveCounter = 1;
+    
     private boolean gameStat = true;
     Timer timer;
     
@@ -67,6 +62,7 @@ public class GamePanel extends JPanel implements ActionListener{
     private Game game;
     private Player player;
     private MapBoard map;
+    private String direction = "D";
     
     GamePanel(Game game){
         panelConfig();
@@ -96,7 +92,7 @@ public class GamePanel extends JPanel implements ActionListener{
             rock_wallSprite = ImageIO.read(new File(rock_wall));
             rock_streetSprite = ImageIO.read(new File(rock_street));
         } catch(IOException e){
-            e.printStackTrace();
+            
         }
     }
     
@@ -106,6 +102,7 @@ public class GamePanel extends JPanel implements ActionListener{
         timer.start();
     }
     
+    @Override
     public void paintComponent(Graphics g) {
         renderMap(g);
     }
@@ -151,77 +148,12 @@ public class GamePanel extends JPanel implements ActionListener{
             }
         }
     }
-    
-    private void renderBattle(Graphics g) {
-        
-    }
-    
-    private void move() {
-        int xtmp = player.getPosition().x;
-        int ytmp = player.getPosition().y;
-        boolean move = true;
-        if(!prevMove.equals(currentMove)){
-            moveCounter = 1;
-        }
-        prevMove = currentMove;
-        player.setImagePath(direction, moveCounter%2);
-        switch(direction){
-            case "U":
-                ytmp = ytmp - 1;
-                currentMove = direction;
-                moveCounter++;
-                break;
-            case "D":
-                ytmp = ytmp + 1;
-                currentMove = direction;
-                moveCounter++;
-                break;
-            case "L":
-                xtmp = xtmp - 1;
-                currentMove = direction;
-                moveCounter++;
-                break;
-            case "R":
-                xtmp = xtmp + 1;
-                currentMove = direction;
-                moveCounter++;
-                break;
-            case " ":
-                move = false;
-                break;
-        }
-        direction = " ";
-        if(!checkCollisions(xtmp, ytmp)&& move){
-            map.at(player.getActiveEngimon().getPosition()).setObject(null);
-            player.getActiveEngimon().setPosition(player.getPosition());
-            map.at(player.getActiveEngimon().getPosition()).setObject(player.getActiveEngimon());
-            player.setPosition(new Point(xtmp, ytmp));
-            map.at(player.getPosition()).setObject(player);
-        }
-    }
-    
-    private boolean checkCollisions(int xtmp, int ytmp) {
-        if((xtmp < 0) || (xtmp > WIDTH/UNIT_SIZE - 1) || (ytmp < 0) || (ytmp > HEIGHT/UNIT_SIZE - 1)){
-            return true;
-        }
-        else if(map.at(xtmp,ytmp).getType().equals(CellType.ROCK_WALL)) {
-            return true;
-        }
-        else if(map.at(xtmp, ytmp).getType().equals(CellType.MOUNTAINS_BORDER) && currentMove.equals("L")){
-            return true;
-        }
-        else if(xtmp - 1 > 0){
-            if(map.at(xtmp-1, ytmp).getType().equals(CellType.MOUNTAINS_BORDER) && currentMove.equals("R")){
-                return true;
-            }
-        }
-        return false;
-    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if(running){
-            move();
+            game.playerMovement(direction);
+            direction = " ";
         }
         repaint();
     }
@@ -266,5 +198,4 @@ public class GamePanel extends JPanel implements ActionListener{
             }
         }
     }
-    
 }
