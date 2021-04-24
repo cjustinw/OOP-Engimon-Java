@@ -22,7 +22,10 @@ public class Pikachu extends Engimon {
     }
     
     public String getImagePath() {
-        return "resources/sprites/pokemon/charizard.png";
+        if(level < 4){
+            return "resources/sprites/pokemon/pikachu.png";
+        }
+        return "resources/sprites/pokemon/raichu.png";
     }
 
     public String interact() {

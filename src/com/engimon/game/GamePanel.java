@@ -62,7 +62,7 @@ public class GamePanel extends JPanel implements ActionListener{
     private Game game;
     private Player player;
     private MapBoard map;
-    private String direction = "D";
+    private String direction = " ";
     
     GamePanel(Game game){
         panelConfig();

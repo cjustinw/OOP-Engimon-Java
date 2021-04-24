@@ -22,7 +22,10 @@ public class Entei extends Engimon {
     }
     
     public String getImagePath() {
-        return "resources/sprites/pokemon/charizard.png";
+        if(level < 4){
+            return "resources/sprites/pokemon/entei.png";
+        }
+        return "resources/sprites/pokemon/entei 2.png";
     }
 
     public String interact() {

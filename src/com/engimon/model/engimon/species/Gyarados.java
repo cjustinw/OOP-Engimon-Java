@@ -22,7 +22,10 @@ public class Gyarados extends Engimon {
     }
     
     public String getImagePath() {
-        return "resources/sprites/pokemon/charizard.png";
+        if(level < 4){
+            return "resources/sprites/pokemon/magikarp.png";
+        }
+        return "resources/sprites/pokemon/gyarados.png";
     }
 
     public String interact() {

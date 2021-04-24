@@ -22,7 +22,10 @@ public class Articuno extends Engimon {
     }
     
     public String getImagePath() {
-        return "resources/sprites/pokemon/charizard.png";
+        if(level < 4){
+            return "resources/sprites/pokemon/articuno.png";
+        }
+        return "resources/sprites/pokemon/articuno-galarian.png";
     }
 
     public String interact() {

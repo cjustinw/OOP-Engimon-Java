@@ -22,7 +22,10 @@ public class Glaceon extends Engimon {
     }
     
     public String getImagePath() {
-        return "resources/sprites/pokemon/charizard.png";
+        if(level < 4){
+            return "resources/sprites/pokemon/glaceon.png";
+        }
+        return "resources/sprites/pokemon/glaceon 2.png";
     }
 
     public String interact() {

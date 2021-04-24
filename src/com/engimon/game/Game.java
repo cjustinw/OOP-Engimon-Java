@@ -5,7 +5,7 @@
  */
 package com.engimon.game;
 
-import static com.engimon.game.GamePanel.WIDTH;
+import com.engimon.model.engimon.WildEngimon;
 import com.engimon.model.engimon.CreateEngimon;
 import com.engimon.model.engimon.Engimon;
 import com.engimon.model.engimon.species.*;
@@ -36,9 +36,10 @@ public class Game {
     
     public Game() {
         map = new MapBoard();
-        player = new Player(new Point(10,10));
+        player = new Player(new Point(16,11));
         wildEngimon = new ArrayList<>();
-        player.addEngimon(new Charmander(1, new Point(10,9)));
+        player.addEngimon(new Raikou(6, new Point(16,10)));
+        player.addEngimon(new Charmander(6, new Point(-1,-1)));
         player.setActiveEngimon(player.getEngimonAtIndex(0));
         map.at(player.getPosition()).setObject(player);
         map.at(player.getActiveEngimon().getPosition()).setObject(player.getActiveEngimon());
@@ -93,7 +94,6 @@ public class Game {
     }
  
     public void playerMovement(String direction) {
-        
         int xtmp = player.getPosition().x;
         int ytmp = player.getPosition().y;
         boolean move = true;

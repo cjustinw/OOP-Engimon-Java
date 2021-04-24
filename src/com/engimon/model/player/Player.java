@@ -27,7 +27,7 @@ public class Player implements Cellable{
     private String imageRight2Path;
 
     public Player(Point pos) {
-        position = new Point(pos.x, pos.y);
+        position = new Point(pos);
         engimonInventory = new ArrayList<>();
         skillInventory = new ArrayList<>();
         maxSkillItem = 4;
@@ -58,8 +58,25 @@ public class Player implements Cellable{
         return imagePath;
     }
     
+    public String[] getAllEngimonName() {
+        String[] names = new String[engimonInventory.size()];
+        for(int i = 0; i < engimonInventory.size(); i++){
+            names[i] = engimonInventory.get(i).getName();
+        }
+        return names;
+    }
+    
     public Engimon getEngimonAtIndex(int n) {
         return engimonInventory.get(n);
+    }
+    
+    public Engimon getEngimonByName(String name) {
+        for(int i = 0; i < engimonInventory.size(); i++){
+            if(engimonInventory.get(i).getName().equals(name)){
+                return engimonInventory.get(i);
+            }
+        }
+        return null;
     }
     
     public void setImagePath(String S, int n) {
@@ -124,9 +141,11 @@ public class Player implements Cellable{
     public void setActiveEngimon(Engimon E) {
         if(activeEngimon != null){
             Engimon tmp = activeEngimon;
-            E.setActive(tmp.getPosition());
-            activeEngimon = E;
-            tmp.setInactive();
+            if(tmp != E){
+                E.setActive(tmp.getPosition());
+                activeEngimon = E;
+                tmp.setInactive();
+            }
         }
         else {
             E.setActive();

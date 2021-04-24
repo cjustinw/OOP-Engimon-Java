@@ -14,7 +14,9 @@ import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  *
@@ -50,6 +52,7 @@ public class GameFrame extends javax.swing.JFrame {
         gamePanel.add(new GamePanel(game));
         engimonImg.add(new EngimonPanel(game.getPlayer().getActiveEngimon()));
         setEngimonProfile();
+        setSelectActiveBtn();
     }
     
     public void setEngimonProfile() {
@@ -72,6 +75,15 @@ public class GameFrame extends javax.swing.JFrame {
             text = text + "</html>";
         engimonProfile.setText(text);
     }
+    
+    private void setSelectActiveBtn() {
+        selectActive.removeAllItems();
+        selectActive.addItem("Select Engimon");
+        for(int i = 0; i < game.getPlayer().getAllEngimonName().length; i++){
+            selectActive.addItem(game.getPlayer().getAllEngimonName()[i]);
+        }
+        changeActiveBtn.setEnabled(false);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -91,6 +103,8 @@ public class GameFrame extends javax.swing.JFrame {
         engimonProfile = new javax.swing.JLabel();
         engimonImg = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
+        changeActiveBtn = new javax.swing.JButton();
+        selectActive = new javax.swing.JComboBox<>();
         inventoryPanel = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         breedingPanel = new javax.swing.JPanel();
@@ -192,34 +206,54 @@ public class GameFrame extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI Black", 0, 24)); // NOI18N
         jLabel2.setText("Active Engimon");
 
+        changeActiveBtn.setText("Change");
+        changeActiveBtn.setFocusPainted(false);
+        changeActiveBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                changeActiveBtnActionPerformed(evt);
+            }
+        });
+
+        selectActive.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        selectActive.setRequestFocusEnabled(false);
+        selectActive.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectActiveActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout activeEngimonPanelLayout = new javax.swing.GroupLayout(activeEngimonPanel);
         activeEngimonPanel.setLayout(activeEngimonPanelLayout);
         activeEngimonPanelLayout.setHorizontalGroup(
             activeEngimonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(activeEngimonPanelLayout.createSequentialGroup()
-                .addGap(39, 39, 39)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, activeEngimonPanelLayout.createSequentialGroup()
+                .addContainerGap(59, Short.MAX_VALUE)
                 .addGroup(activeEngimonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(activeEngimonPanelLayout.createSequentialGroup()
-                        .addComponent(engimonImg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(activeEngimonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(changeActiveBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(selectActive, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(engimonImg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(engimonProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap())
         );
         activeEngimonPanelLayout.setVerticalGroup(
             activeEngimonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(activeEngimonPanelLayout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(activeEngimonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, activeEngimonPanelLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
-                        .addComponent(engimonProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(134, 134, 134))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(activeEngimonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(engimonProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(activeEngimonPanelLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(engimonImg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(45, 45, 45)
+                        .addComponent(selectActive, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32)
+                        .addComponent(changeActiveBtn)))
+                .addContainerGap(154, Short.MAX_VALUE))
         );
 
         tabPanel.addTab("Active Engimon", activeEngimonPanel);
@@ -339,6 +373,34 @@ public class GameFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_newGameButtonActionPerformed
 
+    private void selectActiveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectActiveActionPerformed
+        // TODO add your handling code here:
+        if(evt.getSource()==selectActive){
+//            System.out.println(selectActive.getSelectedItem());
+            if(selectActive.getSelectedItem() != null){
+                if(!selectActive.getSelectedItem().equals("Select Engimon")){
+                    changeActiveBtn.setEnabled(true);
+                }
+                else{
+                    changeActiveBtn.setEnabled(false);
+                }
+            }
+        }
+    }//GEN-LAST:event_selectActiveActionPerformed
+
+    private void changeActiveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changeActiveBtnActionPerformed
+        // TODO add your handling code here:
+        if(selectActive.getSelectedItem() != null){
+            game.getPlayer().setActiveEngimon(game.getPlayer().getEngimonByName(selectActive.getSelectedItem().toString()));
+            engimonImg.removeAll();
+            engimonImg.revalidate();
+            engimonImg.add(new EngimonPanel(game.getPlayer().getActiveEngimon()));
+            engimonImg.repaint();
+            setEngimonProfile();
+            setSelectActiveBtn();
+        }
+    }//GEN-LAST:event_changeActiveBtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -380,6 +442,7 @@ public class GameFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel activeEngimonPanel;
     private javax.swing.JPanel breedingPanel;
+    private javax.swing.JButton changeActiveBtn;
     private javax.swing.JPanel engimonImg;
     private javax.swing.JLabel engimonProfile;
     private javax.swing.JButton exitGameButton;
@@ -391,6 +454,7 @@ public class GameFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JButton newGameButton;
     private javax.swing.JPanel optionPanel;
+    private javax.swing.JComboBox<String> selectActive;
     private javax.swing.JTabbedPane tabPanel;
     private javax.swing.JPanel titlePanel;
     // End of variables declaration//GEN-END:variables
