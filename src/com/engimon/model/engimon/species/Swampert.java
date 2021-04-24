@@ -24,7 +24,10 @@ public class Swampert extends Engimon {
     }
     
     public String getImagePath() {
-        return "resources/sprites/pokemon/charizard.png";
+        if(level < 4){
+            return "resources/sprites/pokemon/swampert.png";
+        }
+        return "resources/sprites/pokemon/swampert 2.png";
     }
 
     public String interact() {

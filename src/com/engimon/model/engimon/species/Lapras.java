@@ -24,7 +24,10 @@ public class Lapras extends Engimon {
     }
     
     public String getImagePath() {
-        return "resources/sprites/pokemon/charizard.png";
+        if(level < 4){
+            return "resources/sprites/pokemon/lapras.png";
+        }
+        return "resources/sprites/pokemon/lapras-gmax.png";
     }
 
     public String interact() {

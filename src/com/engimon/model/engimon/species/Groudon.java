@@ -22,7 +22,10 @@ public class Groudon extends Engimon {
     }
     
     public String getImagePath() {
-        return "resources/sprites/pokemon/charizard.png";
+        if(level < 4){
+            return "resources/sprites/pokemon/groudon.png";
+        }
+        return "resources/sprites/pokemon/groudon-primal.png";
     }
 
     public String interact() {

@@ -22,6 +22,9 @@ public class Charmander extends Engimon {
     }
     
     public String getImagePath() {
+        if(level < 4){
+            return "resources/sprites/pokemon/charmander.png";
+        }
         return "resources/sprites/pokemon/charizard.png";
     }
 

@@ -22,7 +22,10 @@ public class Diglet extends Engimon {
     }
     
     public String getImagePath() {
-        return "resources/sprites/pokemon/charizard.png";
+        if(level < 4){
+            return "resources/sprites/pokemon/diglett.png";
+        }
+        return "resources/sprites/pokemon/dugtrio.png";
     }
 
     public String interact() {
