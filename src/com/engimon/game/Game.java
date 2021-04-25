@@ -148,7 +148,7 @@ public class Game {
             case " " -> move = false;
         }
         
-        if(!playerCollisions(xtmp, ytmp) && move){
+        if(!playerCollisions(xtmp, ytmp) && move && player.getActiveEngimon() != null){
             map.at(player.getActiveEngimon().getPosition()).setObject(null);
             player.getActiveEngimon().setPosition(player.getPosition());
             map.at(player.getActiveEngimon().getPosition()).setObject(player.getActiveEngimon());
@@ -162,7 +162,7 @@ public class Game {
             return true;
         }
         else if(map.at(xtmp, ytmp).isFull() && (map.at(xtmp, ytmp).getObject() != player.getActiveEngimon())){
-            if(map.at(xtmp, ytmp).getObject().isEngimon()){
+            if(map.at(xtmp, ytmp).getObject().isEngimon() && player.getActiveEngimon() != null){
                 pauseWildEngimonMovement(true);
                 currentWildEngimon = map.at(xtmp, ytmp).getObject().getEngimonAtCell();
                 gameState = State.BATTLE;
