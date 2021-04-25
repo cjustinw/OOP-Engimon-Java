@@ -3,11 +3,11 @@ package com.engimon.model.player;
 import com.engimon.model.engimon.Engimon;
 import com.engimon.model.map.Cellable;
 import com.engimon.model.skill.Skill;
-import com.engimon.model.inventory.Inventory;
+import com.engimon.model.Inventory.Inventory;
 import java.awt.Point;
 import java.util.List;
 
-public class Player implements Cellable{
+public class Player implements Cellable {
     private Inventory<Engimon> engimonInventory;
     private Inventory<Skill> skillInventory;
     private int maxSkillItem;
@@ -45,76 +45,73 @@ public class Player implements Cellable{
         imageRight2Path = "resources/sprites/player/right3.png";
         imagePath = imageDownPath;
     }
-    
+
     public Point getPosition() {
         return position;
     }
-    
+
     public void setPosition(Point P) {
         position = new Point(P);
     }
-    
+
     public String getImagePath() {
         return imagePath;
     }
-    
+
     public String[] getAllEngimonName() {
         String[] names = new String[engimonInventory.size()];
-        for(int i = 0; i < engimonInventory.size(); i++){
-            if(engimonInventory.get(i).getElements().size() == 1){
-                names[i] = engimonInventory.get(i).getName() + "/" + engimonInventory.get(i).getElements().get(0).getElmt().toString() + "/Lv." + engimonInventory.get(i).getLevel();
+        for (int i = 0; i < engimonInventory.size(); i++) {
+            if (engimonInventory.get(i).getElements().size() == 1) {
+                names[i] = engimonInventory.get(i).getName() + "/"
+                        + engimonInventory.get(i).getElements().get(0).getElmt().toString() + "/Lv."
+                        + engimonInventory.get(i).getLevel();
+            } else {
+                names[i] = engimonInventory.get(i).getName() + "/"
+                        + engimonInventory.get(i).getElements().get(0).getElmt().toString() + " "
+                        + engimonInventory.get(i).getElements().get(1).getElmt().toString() + "/Lv."
+                        + engimonInventory.get(i).getLevel();
             }
-            else{
-                names[i] = engimonInventory.get(i).getName() + "/" + engimonInventory.get(i).getElements().get(0).getElmt().toString() + " " + engimonInventory.get(i).getElements().get(1).getElmt().toString() + "/Lv." + engimonInventory.get(i).getLevel();
-            }
-            
+
         }
         return names;
     }
-    
+
     public Engimon getEngimonAtIndex(int n) {
         return engimonInventory.get(n);
     }
-    
+
     public void setImagePath(String S, int n) {
-        if(S.equals("U")){
-            if(n == 1){
+        if (S.equals("U")) {
+            if (n == 1) {
                 imagePath = "resources/sprites/player/up2.png";
-            }
-            else {
+            } else {
                 imagePath = "resources/sprites/player/up3.png";
             }
-        }
-        else if(S.equals("D")) {
-            if(n == 1){
+        } else if (S.equals("D")) {
+            if (n == 1) {
                 imagePath = "resources/sprites/player/down2.png";
-            }
-            else {
+            } else {
                 imagePath = "resources/sprites/player/down3.png";
             }
-        }
-        else if(S.equals("L")){
-            if(n == 1){
+        } else if (S.equals("L")) {
+            if (n == 1) {
                 imagePath = "resources/sprites/player/left2.png";
-            }
-            else {
+            } else {
                 imagePath = "resources/sprites/player/left3.png";
             }
-        }
-        else if(S.equals("R")){
-            if(n == 1){
+        } else if (S.equals("R")) {
+            if (n == 1) {
                 imagePath = "resources/sprites/player/right2.png";
-            }
-            else {
+            } else {
                 imagePath = "resources/sprites/player/right3.png";
             }
         }
     }
-    
+
     public boolean isInventoryFull() {
         return numOfItem >= maxInventory;
     }
-    
+
     public void addEngimon(Engimon E) {
         if(!isInventoryFull()) {
             E.setLife();
@@ -122,22 +119,20 @@ public class Player implements Cellable{
             engimonInventory.add(E);
             engimonInventory.sortEngimon();
             numOfItem++;
-        }
-        else {
+        } else {
             // throw
         }
     }
-    
+
     public void addSkillItem(Skill S) {
-        if(!isInventoryFull()) {
+        if (!isInventoryFull()) {
             skillInventory.add(S);
             numOfItem++;
-        }
-        else {
+        } else {
             // throw
         }
     }
-    
+
     public void setActiveEngimon(Engimon E) {
         if(E != null){
             if(activeEngimon != null){
@@ -155,7 +150,6 @@ public class Player implements Cellable{
                 else{
                     E.setActive(new Point(position.x + 1, position.y));
                 }
-                
                 activeEngimon = E;
             }
         }
@@ -172,19 +166,19 @@ public class Player implements Cellable{
             }
         }
     }
-    
+
     public Engimon getActiveEngimon() {
         return activeEngimon;
     }
-    
+
     public char getSymbol() {
         return 'P';
     }
-    
+
     public boolean isEngimon() {
         return false;
     }
-    
+
     public Engimon getEngimonAtCell() {
         return null;
     }

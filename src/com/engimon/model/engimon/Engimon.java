@@ -1,11 +1,11 @@
 package com.engimon.model.engimon;
 
+import com.engimon.model.element.Element;
+import com.engimon.model.map.Cellable;
+import com.engimon.model.skill.Skill;
+
 import java.awt.*;
 import java.util.List;
-
-import com.engimon.model.element.*;
-import com.engimon.model.map.Cellable;
-import com.engimon.model.skill.*;
 
 public abstract class Engimon implements Cellable {
     protected int id;
@@ -110,6 +110,14 @@ public abstract class Engimon implements Cellable {
         else{
             // throw
         }
+    }
+
+    public void setExp(int exp) {
+        this.exp = exp;
+    }
+
+    public void setCumulativeExp(int cExp) {
+        cumulativeExp = cExp;
     }
 
     /* return true jika naik level */
