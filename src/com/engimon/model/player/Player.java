@@ -3,6 +3,7 @@ package com.engimon.model.player;
 import com.engimon.model.engimon.Engimon;
 import com.engimon.model.map.Cellable;
 import com.engimon.model.skill.Skill;
+import com.engimon.model.skill.CreateSkillItem;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
@@ -237,17 +238,17 @@ public class Player implements Cellable{
 //        engimon.setPosition(0, 0);
 //    }
 //
-//    public void removeEngimon(Engimon engimon) {
-//        if (getActiveEngimon() == engimon) {
-//            activeEngimon = NULL;
-//        }
-//        for (int i = 0; i < engimonInventory.getNumOfElement(); i++) {
-//            if (engimonInventory[i] == engimon) {
-//                engimonInventory.delAt(i);
-//                break;
-//            }
-//        }
-//    }
+    public void removeEngimon(Engimon engimon) {
+        if (getActiveEngimon() == engimon) {
+            activeEngimon = null;
+        }
+        for (int i = 0; i < engimonInventory.size(); i++) {
+            if (engimonInventory.get(i) == engimon) {
+                engimonInventory.remove(i);
+                break;
+            }
+        }
+    }
 //
 //    public void addSkillItem(Skill skill) {
 //        skillInventory.add(skill);
@@ -315,16 +316,16 @@ public class Player implements Cellable{
 //        }
 //    }
 //
-//    void useSkillItem(Skill skill, Engimon engimon) {
-//        engimon.learnSkill(CreateSkill(skill.getSkillId()));
-//        skill.useSkill();
-//        if (skill.getNumOfItem() == 0) {
-//            for (int i = 0; i < skillInventory.getNumOfElement(); i++) {
-//                if (skillInventory[i].getSkillId() == skill.getSkillId()) {
-//                    skillInventory.delAt(i);
-//                    break;
-//                }
-//            }
-//        }
-//    }
+    void useSkillItem(Skill skill, Engimon engimon) {
+        
+        skill.useSkill();
+        if (skill.getNumOfItem() == 0) {
+            for (int i = 0; i < skillInventory.size(); i++) {
+                if (skillInventory.get(i).getSkillId() == skill.getSkillId()) {
+                    skillInventory.remove(i);
+                    break;
+                }
+            }
+        }
+    }
 }
