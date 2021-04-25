@@ -132,4 +132,11 @@ public abstract class Engimon implements Cellable {
         return 'E';
     }
     
+    public boolean isEngimon() {
+        return true;
+    }
+    
+    public Engimon getEngimonAtCell() {
+        return this;
+    }
 }

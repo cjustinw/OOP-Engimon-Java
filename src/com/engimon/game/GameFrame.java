@@ -5,22 +5,12 @@
  */
 package com.engimon.game;
 
-import com.engimon.model.engimon.Engimon;
-import com.engimon.model.engimon.species.Charmander;
-import com.engimon.model.map.MapBoard;
-import com.engimon.model.player.Player;
 import java.awt.BorderLayout;
-import java.awt.Point;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 /**
  *
- * @author chris
+ * @author Engimon.cpp
  */
 public class GameFrame extends javax.swing.JFrame {
     
@@ -50,12 +40,23 @@ public class GameFrame extends javax.swing.JFrame {
         loadPanel();
         game = new Game();
         gamePanel.add(new GamePanel(game));
-        engimonImg.add(new EngimonPanel(game.getPlayer().getActiveEngimon()));
-        setEngimonProfile();
+        panelActiveEngimonConfig();
+    }
+    
+    public void panelActiveEngimonConfig() {
+        setActiveEngimonImg();
+        setActiveEngimonProfile();
         setSelectActiveBtn();
     }
     
-    public void setEngimonProfile() {
+    public void setActiveEngimonImg(){
+        engimonImg.removeAll();
+        engimonImg.revalidate();
+        engimonImg.add(new EngimonPanel(game.getPlayer().getActiveEngimon()));
+        engimonImg.repaint();
+    }
+    
+    public void setActiveEngimonProfile() {
         JLabel label = new JLabel("Test");
         String text = "<html> "
             + "Name     : " + game.getPlayer().getActiveEngimon().getName() + "<br/>"
@@ -79,8 +80,8 @@ public class GameFrame extends javax.swing.JFrame {
     private void setSelectActiveBtn() {
         selectActive.removeAllItems();
         selectActive.addItem("Select Engimon");
-        for(int i = 0; i < game.getPlayer().getAllEngimonName().length; i++){
-            selectActive.addItem(game.getPlayer().getAllEngimonName()[i]);
+        for (String allEngimonName : game.getPlayer().getAllEngimonName()) {
+            selectActive.addItem(allEngimonName);
         }
         changeActiveBtn.setEnabled(false);
     }
@@ -121,6 +122,11 @@ public class GameFrame extends javax.swing.JFrame {
         tabPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         tabPanel.setFocusable(false);
         tabPanel.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        tabPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabPanelMouseClicked(evt);
+            }
+        });
 
         optionPanel.setPreferredSize(new java.awt.Dimension(600, 600));
 
@@ -376,7 +382,6 @@ public class GameFrame extends javax.swing.JFrame {
     private void selectActiveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectActiveActionPerformed
         // TODO add your handling code here:
         if(evt.getSource()==selectActive){
-//            System.out.println(selectActive.getSelectedItem());
             if(selectActive.getSelectedItem() != null){
                 if(!selectActive.getSelectedItem().equals("Select Engimon")){
                     changeActiveBtn.setEnabled(true);
@@ -392,14 +397,15 @@ public class GameFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(selectActive.getSelectedItem() != null){
             game.getPlayer().setActiveEngimon(game.getPlayer().getEngimonByName(selectActive.getSelectedItem().toString()));
-            engimonImg.removeAll();
-            engimonImg.revalidate();
-            engimonImg.add(new EngimonPanel(game.getPlayer().getActiveEngimon()));
-            engimonImg.repaint();
-            setEngimonProfile();
-            setSelectActiveBtn();
+            game.getMap().at(game.getPlayer().getActiveEngimon().getPosition()).setObject(game.getPlayer().getActiveEngimon());
+            panelActiveEngimonConfig();
         }
     }//GEN-LAST:event_changeActiveBtnActionPerformed
+
+    private void tabPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabPanelMouseClicked
+        // TODO add your handling code here:
+        panelActiveEngimonConfig();
+    }//GEN-LAST:event_tabPanelMouseClicked
 
     /**
      * @param args the command line arguments
@@ -436,8 +442,6 @@ public class GameFrame extends javax.swing.JFrame {
             }
         });
     }
-    
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel activeEngimonPanel;

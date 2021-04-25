@@ -18,7 +18,7 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author chris
+ * @author Engimon.cpp
  */
 public class EngimonPanel extends JPanel{
     private Engimon engimon;

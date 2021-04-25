@@ -18,7 +18,7 @@ import java.util.List;
 
 /**
  *
- * @author chris
+ * @author Engimon.cpp
  */
 public class Game {
     private final Player player;
@@ -28,6 +28,7 @@ public class Game {
     private static int SIZE_LENGTH = 20;
     private static int SIZE_WIDTH = 20;
     
+    private boolean running;
     
     /* Movement */
     private String prevMove = " ";
@@ -35,6 +36,7 @@ public class Game {
     private int moveCounter = 1;
     
     public Game() {
+        running = true;
         map = new MapBoard();
         player = new Player(new Point(16,11));
         wildEngimon = new ArrayList<>();
@@ -43,7 +45,15 @@ public class Game {
         player.setActiveEngimon(player.getEngimonAtIndex(0));
         map.at(player.getPosition()).setObject(player);
         map.at(player.getActiveEngimon().getPosition()).setObject(player.getActiveEngimon());
-        initWildEngimon(16);
+        initWildEngimon(20);
+    }
+    
+    public boolean getState() {
+        return running;
+    }
+    
+    public void setState(boolean state) {
+        running = state;
     }
     
     public Player getPlayer() {
@@ -90,6 +100,12 @@ public class Game {
         
         for(int i = 0; i < wildEngimon.size(); i++){
             new Thread(wildEngimon.get(i)).start();
+        }
+    }
+    
+    public void pauseWildEngimonMovement(boolean pause){
+        for(int i = 0; i < wildEngimon.size(); i++){
+            wildEngimon.get(i).setPaused(pause);
         }
     }
  
@@ -141,6 +157,13 @@ public class Game {
             return true;
         }
         else if(map.at(xtmp, ytmp).isFull() && (map.at(xtmp, ytmp).getObject() != player.getActiveEngimon())){
+            if(map.at(xtmp, ytmp).getObject().isEngimon()){
+                pauseWildEngimonMovement(true);
+                System.out.println(wildEngimon.size());
+                battle(map.at(xtmp, ytmp).getObject().getEngimonAtCell(), new Point(xtmp, ytmp));
+                System.out.println(wildEngimon.size());
+                pauseWildEngimonMovement(false);
+            }
             return true;
         }
         else if(map.at(xtmp,ytmp).getType().equals(CellType.ROCK_WALL)) {
@@ -155,5 +178,26 @@ public class Game {
             }
         }
         return false;
+    }
+    
+    public void update() {
+        
+    }
+    
+    private void battle(Engimon engimon, Point pos) {
+        
+        
+        /* Masukkan engimon ke Inventory player */
+        for(int i = 0; i < wildEngimon.size(); i++){
+            if(wildEngimon.get(i).getEngimon() == engimon){
+                wildEngimon.remove(i);
+                map.at(pos).setObject(null);
+                break;
+            }
+        }
+        player.addEngimon(engimon);
+        
+        
+        System.out.println("P: " + player.getAllEngimonName().length);
     }
 }
