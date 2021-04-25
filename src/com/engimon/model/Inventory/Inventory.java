@@ -16,6 +16,14 @@ public class Inventory<T> {
         this.myinventory.add(elmt);
         numOfElement += 1;
     }
+    
+    public List<T> getMyInventory() {
+        return myinventory;
+    }
+    
+    public int indexOf(T elmt) {
+        return myinventory.indexOf(elmt);
+    }
 
     public void remove(int idx) {
         if (numOfElement == 0) {
