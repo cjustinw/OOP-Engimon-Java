@@ -6,6 +6,8 @@ import com.engimon.model.engimon.species.Charmander;
 import com.engimon.model.engimon.species.Diglet;
 import com.engimon.model.engimon.species.Entei;
 import com.engimon.model.player.Player;
+import com.engimon.model.skill.CreateSkillItem;
+import com.engimon.model.skill.Skill;
 
 import java.awt.*;
 import java.io.*;
@@ -46,6 +48,7 @@ public class GameLoader {
         String name = engimon.getName();
         int level = engimon.getLevel();
         int exp = engimon.getExp();
+        int cumExp = engimon.getCumulativeExp();
         Point position = engimon.getPosition();
 
         pw.write("---------------------------------\n");
@@ -53,9 +56,25 @@ public class GameLoader {
         pw.write(name+"\n");
         pw.write(level+"\n");
         pw.write(exp+"\n");
+        pw.write(cumExp+"\n");
         pw.write(position.x+"\n");
         pw.write(position.y+"\n");
-        // saveSkillEngimon
+        pw.write(engimon.getSkills().size()+"\n");
+
+        for (Skill skill: engimon.getSkills() ) {
+            saveSkillEngimon(skill);
+        }
+    }
+
+    private void saveSkillEngimon(Skill skill) {
+        int id = skill.getSkillId();
+        int mastery = skill.getMasteryLevel();
+        int numOfItem = skill.getNumOfItem();
+
+        pw.write("***************\n");
+        pw.write(id+"\n");
+        pw.write(mastery + "\n");
+        pw.write(numOfItem+"\n");
     }
 
     public void load() throws IOException {
@@ -89,7 +108,10 @@ public class GameLoader {
         String name = reader.readLine();
         int level = Integer.parseInt((reader.readLine()));
 
-        // int exp =
+        int exp =
+           Integer.parseInt(reader.readLine());
+
+        int cumExp =
            Integer.parseInt(reader.readLine());
 
         Point position = new Point(Integer.parseInt(reader.readLine()),
@@ -97,8 +119,37 @@ public class GameLoader {
 
         Engimon engimon = (new CreateEngimon()).createEngimon(id, level, position);
         engimon.setName(name);
+        engimon.setExp(exp);
+        engimon.setCumulativeExp(cumExp);
+
+        int numOfSkill = Integer.parseInt(reader.readLine());
+
+        for (int i =0; i< numOfSkill; i++) {
+            engimon.learnSkill(loadSkillEngimon());
+        }
+
+        assert engimon.getSkills().size() == numOfSkill;
 
         return engimon;
+    }
+
+    private Skill loadSkillEngimon() throws IOException {
+        reader.readLine();
+
+        int id = Integer.parseInt(reader.readLine());
+        int mastery = Integer.parseInt(reader.readLine());
+        int numOfItem = Integer.parseInt(reader.readLine());
+
+        Skill skill = (new CreateSkillItem()).createSkillItem(id);
+        skill.setMasteryLevel(mastery);
+
+        for (int i = 1; i < numOfItem; i++) {
+            skill.addItem();
+        }
+
+        assert skill.getNumOfItem() == numOfItem; // biar lebih yakin
+
+        return skill;
     }
 
     // Driver for gameloader
