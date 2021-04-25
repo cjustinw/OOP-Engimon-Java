@@ -21,23 +21,27 @@ import javax.swing.JPanel;
  * @author Engimon.cpp
  */
 public class EngimonPanel extends JPanel{
-    private Engimon engimon;
     private BufferedImage engimonSprite;
+    private Dimension dimension;
     
-    public EngimonPanel(Engimon engimon) {
-        this.setPreferredSize(new Dimension(250, 250));
+    private Engimon engimon;
+    
+    public EngimonPanel(Engimon engimon, Dimension dimension) {
+        this.engimon = engimon;
+        this.dimension = dimension;
+        this.setPreferredSize(new Dimension(dimension));
         this.setBackground(Color.white);
         this.setFocusable(true);
-        this.engimon = engimon;
         try {
             engimonSprite = ImageIO.read(new File(engimon.getImagePath()));
         } catch(IOException e){
-            e.printStackTrace();
+            
         }
     }
     
+    @Override
     public void paintComponent(Graphics g) {
-        Image engimonImg = engimonSprite.getScaledInstance(250, 250, Image.SCALE_DEFAULT);
+        Image engimonImg = engimonSprite.getScaledInstance(dimension.height, dimension.width, Image.SCALE_DEFAULT);
         g.drawImage(engimonImg, 0, 0, this);
     }
 }
