@@ -165,7 +165,7 @@ public class Game {
             if(map.at(xtmp, ytmp).getObject().isEngimon()){
                 pauseWildEngimonMovement(true);
                 currentWildEngimon = map.at(xtmp, ytmp).getObject().getEngimonAtCell();
-                gameState = State.PAUSED;
+                gameState = State.BATTLE;
             }
             return true;
         }
@@ -183,15 +183,48 @@ public class Game {
         return false;
     }
     
-    private void battle(Engimon engimon) {
+    public List<String> battle() {
         /* Masukkan engimon ke Inventory player */
-        for(int i = 0; i < wildEngimon.size(); i++){
-            if(wildEngimon.get(i).getEngimon() == engimon){
-                wildEngimon.remove(i);
-                map.at(engimon.getPosition()).setObject(null);
-                break;
+        
+        List<String> output = new ArrayList<>();
+        
+        if(player.getActiveEngimon().getLife() > 0) {
+            
+        }
+        
+        double activePower = player.getActiveEngimon().getPower(currentWildEngimon);
+        double wildPower = currentWildEngimon.getPower(player.getActiveEngimon());
+        
+        if(activePower >= wildPower) {
+            output.add(player.getActiveEngimon().getName() + " Win!");
+            if(!player.isInventoryFull()){
+                for(int i = 0; i < wildEngimon.size(); i++){
+                    if(wildEngimon.get(i).getEngimon() == currentWildEngimon){
+                        wildEngimon.remove(i);
+                        map.at(currentWildEngimon.getPosition()).setObject(null);
+                        break;
+                    }
+                }
+                player.addEngimon(currentWildEngimon);
+                output.add(currentWildEngimon.getName() + " will be added to your Inventory!");
+            }
+            else{
+                output.add("Your Inventory is full!");
             }
         }
-        player.addEngimon(engimon);
+        else {
+            output.add(currentWildEngimon.getName() + " Win!");
+            player.getActiveEngimon().reduceLife();
+            if(player.getActiveEngimon().getLife() > 0) {
+                output.add(player.getActiveEngimon().getName() + "'s life remains " + player.getActiveEngimon().getLife());
+            }
+            else{
+                output.add(player.getActiveEngimon().getName() + " will be removed from your Inventory!");
+                map.at(player.getActiveEngimon().getPosition()).setObject(null);
+                player.removeEngimon(player.getActiveEngimon());
+                player.setActiveEngimon(null);
+            }
+        }
+        return output;
     }
 }

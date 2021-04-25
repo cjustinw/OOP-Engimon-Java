@@ -19,6 +19,7 @@ public class Entei extends Engimon {
         elements.add(new Fire());
         skills = new ArrayList<>();
         skills.add(new Eruption(false));
+        life = 1;
     }
     
     public String getImagePath() {

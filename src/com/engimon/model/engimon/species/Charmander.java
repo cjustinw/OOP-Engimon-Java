@@ -19,6 +19,7 @@ public class Charmander extends Engimon {
         elements.add(new Fire());
         skills = new ArrayList<>();
         skills.add(new BlastBurn(false));
+        life = 1;
     }
     
     public String getImagePath() {

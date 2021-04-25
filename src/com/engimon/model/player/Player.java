@@ -117,6 +117,8 @@ public class Player implements Cellable{
     
     public void addEngimon(Engimon E) {
         if(!isInventoryFull()) {
+            E.setLife();
+            E.setPosition(new Point(-1,-1));
             engimonInventory.add(E);
             engimonInventory.sortEngimon();
             numOfItem++;
@@ -137,17 +139,37 @@ public class Player implements Cellable{
     }
     
     public void setActiveEngimon(Engimon E) {
-        if(activeEngimon != null){
-            Engimon tmp = activeEngimon;
-            if(tmp != E){
-                E.setActive(tmp.getPosition());
+        if(E != null){
+            if(activeEngimon != null){
+                Engimon tmp = activeEngimon;
+                if(tmp != E){
+                    E.setActive(tmp.getPosition());
+                    activeEngimon = E;
+                    tmp.setInactive();
+                }
+            }
+            else {
+                if(position.y != 0){
+                    E.setActive(new Point(position.x, position.y - 1));
+                }
+                else{
+                    E.setActive(new Point(position.x + 1, position.y));
+                }
+                
                 activeEngimon = E;
-                tmp.setInactive();
             }
         }
-        else {
-            E.setActive();
-            activeEngimon = E;
+        else{
+            activeEngimon = null;
+        }
+    }
+    
+    public void removeEngimon(Engimon E) {
+        for(int i = 0; i < engimonInventory.size(); i++) {
+            if(engimonInventory.get(i) == E) {
+                engimonInventory.remove(i);
+                break;
+            }
         }
     }
     

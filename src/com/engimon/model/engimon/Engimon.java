@@ -15,11 +15,13 @@ public abstract class Engimon implements Cellable {
     protected List<Skill> skills;
     protected List<Element> elements;
     protected Point position;
+    protected int life;
     private int numOfSkill;
     private int exp;
     private int cumulativeExp;
     private boolean active;
     private String imagePath;
+    
 
     public int getId() {
         return id;
@@ -88,6 +90,18 @@ public abstract class Engimon implements Cellable {
         }
     }
     
+    public int getLife() {
+        return life;
+    }
+    
+    public void setLife() {
+        life = 3;
+    }
+    
+    public void reduceLife() {
+        life--;
+    }
+    
     public void setInactive() {
         if(active) {
             position = new Point(-1,-1);
@@ -138,5 +152,23 @@ public abstract class Engimon implements Cellable {
     
     public Engimon getEngimonAtCell() {
         return this;
+    }
+    
+    public double getPower(Engimon other) {
+        double maxAdvantage = 0;
+        for(int i = 0; i < elements.size(); i++) {
+            for(int j = 0; j < other.elements.size(); j++) {
+                double advantage = elements.get(i).elementAdvantage(other.elements.get(j).getElmt());
+                if(advantage > maxAdvantage) {
+                    maxAdvantage = advantage;
+                }
+            }
+        }
+        int sumPower = 0;
+        for(int i = 0; i < skills.size(); i++) {
+            sumPower += skills.get(i).getSkillDamage();
+        }
+        
+        return level * maxAdvantage + (double)sumPower;
     }
 }

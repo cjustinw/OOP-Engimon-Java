@@ -5,7 +5,7 @@ public class Water extends Element {
         super(ElmtType.WATER);
     }
 
-    public float elementAdvantage(ElmtType Elmt) {
+    public double elementAdvantage(ElmtType Elmt) {
         switch (Elmt) {
         case ELECTRIC:
             return 0;

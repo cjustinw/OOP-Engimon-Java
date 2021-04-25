@@ -163,13 +163,10 @@ public class GamePanel extends JPanel implements ActionListener{
             direction = " ";
             repaint();
         }
-        else if(game.getState().equals(State.PAUSED)){
+        else if(game.getState().equals(State.BATTLE)){
             battlePanel.setVisible(true);
             battlePanel.battle(game);
             repaint();
-        }
-        else if(game.getState().equals(State.BATTLE)){
-            
         }
     }
     

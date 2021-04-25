@@ -19,6 +19,7 @@ public class Raikou extends Engimon {
         elements.add(new Electric());
         skills = new ArrayList<>();
         skills.add(new Catastropika(false));
+        life = 1;
     }
     
     public String getImagePath() {
