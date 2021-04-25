@@ -7,10 +7,10 @@ public interface Cellable {
 
     // objek harus memiliki symbol/sprite
     boolean isEngimon();
-    
+
     Engimon getEngimonAtCell();
-    
+
     char getSymbol();
-    
+
     String getImagePath();
 }
