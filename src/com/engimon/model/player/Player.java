@@ -161,6 +161,14 @@ public class Player implements Cellable{
         return 'P';
     }
     
+    public boolean isEngimon() {
+        return false;
+    }
+    
+    public Engimon getEngimonAtCell() {
+        return null;
+    }
+    
 //    /* Getter */
 //    public int getNumOfAllItem() {
 //        int skillCount = 0;

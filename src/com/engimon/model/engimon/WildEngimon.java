@@ -8,14 +8,13 @@ package com.engimon.model.engimon;
 import com.engimon.game.Random;
 import com.engimon.model.element.Element.ElmtType;
 import static com.engimon.model.element.Element.ElmtType.*;
-import com.engimon.model.engimon.Engimon;
 import com.engimon.model.map.CellType;
 import com.engimon.model.map.MapBoard;
 import java.awt.Point;
 
 /**
  *
- * @author chris
+ * @author Engimon.cpp
  */
 public class WildEngimon implements Runnable{
     private static int SIZE_LENGTH = 20;
@@ -24,8 +23,10 @@ public class WildEngimon implements Runnable{
     private Engimon engimon;
     private MapBoard map;
     private int speed;
+    private boolean isPaused;
     
     public WildEngimon(Engimon engimon, MapBoard map, int speed){
+        isPaused = false;
         this.engimon = engimon;
         this.map = map;
         this.speed = speed;
@@ -35,23 +36,29 @@ public class WildEngimon implements Runnable{
         return engimon;
     }
     
+    public void setPaused(boolean pause) {
+        isPaused = pause;
+    }
+    
     public synchronized void move() {
-        Random rand = new Random();
-        int dir;
-        Point pos;
-        do{
-            pos = new Point(engimon.getPosition());
-            dir = rand.getRandomNumber(1, 4);
-            switch (dir) {
-                case 1 -> pos.y--;
-                case 2 -> pos.y++;
-                case 3 -> pos.x--;
-                default -> pos.x++;
-            }
-        }while(engimonCollisions(pos.x, pos.y));
-        map.at(engimon.getPosition()).setObject(null);
-        engimon.setPosition(pos);
-        map.at(pos).setObject(engimon);
+        if(!isPaused){
+            Random rand = new Random();
+            int dir;
+            Point pos;
+            do{
+                pos = new Point(engimon.getPosition());
+                dir = rand.getRandomNumber(1, 4);
+                switch (dir) {
+                    case 1 -> pos.y--;
+                    case 2 -> pos.y++;
+                    case 3 -> pos.x--;
+                    default -> pos.x++;
+                }
+            }while(engimonCollisions(pos.x, pos.y));
+            map.at(engimon.getPosition()).setObject(null);
+            engimon.setPosition(pos);
+            map.at(pos).setObject(engimon);
+        }
     }
     
     public Point getPosition() {
@@ -68,7 +75,14 @@ public class WildEngimon implements Runnable{
         else if(map.at(xtmp,ytmp).getType().equals(CellType.ROCK_WALL)) {
             return true;
         }
-        else{
+        else if(map.at(xtmp, ytmp).getType().equals(CellType.MOUNTAINS_BORDER) && (xtmp == engimon.getPosition().x-1)){
+            return true;
+        }
+        else if(xtmp - 1 > 0){
+            if(map.at(xtmp-1, ytmp).getType().equals(CellType.MOUNTAINS_BORDER) && (xtmp == engimon.getPosition().x+1)){
+                return true;
+            }
+        }
             if(engimon.getElements().size() == 1){
                 switch (engimon.getElements().get(0).getElmt()) {
                     case FIRE -> {
@@ -96,8 +110,7 @@ public class WildEngimon implements Runnable{
                     return (!map.at(xtmp,ytmp).getType().equals(CellType.SEA) && !map.at(xtmp,ytmp).getType().equals(CellType.SEA_BORDER) && !map.at(xtmp,ytmp).getType().equals(CellType.GRASSLAND) && !map.at(xtmp,ytmp).getType().equals(CellType.GRASSLAND_STREET) && !map.at(xtmp,ytmp).getType().equals(CellType.ROCK_STAIR));
                 }
             }
-            return false;
-        }
+        return false;
     }
     
     @Override
