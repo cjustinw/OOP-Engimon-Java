@@ -25,10 +25,16 @@ public class Game {
     private final MapBoard map;
     private final List<WildEngimon> wildEngimon;
     
+    private Engimon currentWildEngimon;
+    
     private static int SIZE_LENGTH = 20;
     private static int SIZE_WIDTH = 20;
     
-    private boolean running;
+    public enum State {
+        RUNNING, BATTLE,PAUSED
+    }
+    
+    private State gameState;
     
     /* Movement */
     private String prevMove = " ";
@@ -36,24 +42,24 @@ public class Game {
     private int moveCounter = 1;
     
     public Game() {
-        running = true;
+        gameState = State.RUNNING;
         map = new MapBoard();
         player = new Player(new Point(16,11));
         wildEngimon = new ArrayList<>();
+        currentWildEngimon = null;
         player.addEngimon(new Raikou(6, new Point(16,10)));
-        player.addEngimon(new Charmander(6, new Point(-1,-1)));
         player.setActiveEngimon(player.getEngimonAtIndex(0));
         map.at(player.getPosition()).setObject(player);
         map.at(player.getActiveEngimon().getPosition()).setObject(player.getActiveEngimon());
         initWildEngimon(20);
     }
     
-    public boolean getState() {
-        return running;
+    public State getState() {
+        return gameState;
     }
     
-    public void setState(boolean state) {
-        running = state;
+    public void setState(State state){
+        gameState = state;
     }
     
     public Player getPlayer() {
@@ -64,8 +70,8 @@ public class Game {
         return map;
     }
     
-    public List<WildEngimon> getWildEngimon() {
-        return wildEngimon;
+    public Engimon getCurrentWildEngimon() {
+        return currentWildEngimon;
     }
     
     private void initWildEngimon(int n) {
@@ -148,7 +154,6 @@ public class Game {
             map.at(player.getActiveEngimon().getPosition()).setObject(player.getActiveEngimon());
             player.setPosition(new Point(xtmp, ytmp));
             map.at(player.getPosition()).setObject(player);
-            map.printMap();
         }
     }
     
@@ -159,10 +164,8 @@ public class Game {
         else if(map.at(xtmp, ytmp).isFull() && (map.at(xtmp, ytmp).getObject() != player.getActiveEngimon())){
             if(map.at(xtmp, ytmp).getObject().isEngimon()){
                 pauseWildEngimonMovement(true);
-                System.out.println(wildEngimon.size());
-                battle(map.at(xtmp, ytmp).getObject().getEngimonAtCell(), new Point(xtmp, ytmp));
-                System.out.println(wildEngimon.size());
-                pauseWildEngimonMovement(false);
+                currentWildEngimon = map.at(xtmp, ytmp).getObject().getEngimonAtCell();
+                gameState = State.PAUSED;
             }
             return true;
         }
@@ -180,24 +183,15 @@ public class Game {
         return false;
     }
     
-    public void update() {
-        
-    }
-    
-    private void battle(Engimon engimon, Point pos) {
-        
-        
+    private void battle(Engimon engimon) {
         /* Masukkan engimon ke Inventory player */
         for(int i = 0; i < wildEngimon.size(); i++){
             if(wildEngimon.get(i).getEngimon() == engimon){
                 wildEngimon.remove(i);
-                map.at(pos).setObject(null);
+                map.at(engimon.getPosition()).setObject(null);
                 break;
             }
         }
         player.addEngimon(engimon);
-        
-        
-        System.out.println("P: " + player.getAllEngimonName().length);
     }
 }

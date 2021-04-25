@@ -5,6 +5,7 @@
  */
 package com.engimon.game;
 
+import com.engimon.game.Game.State;
 import com.engimon.model.player.Player;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -22,7 +23,6 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import com.engimon.model.map.*;
-import java.awt.Point;
 
 /**
  *
@@ -54,6 +54,8 @@ public class GamePanel extends JPanel implements ActionListener{
     private BufferedImage frontSprite = null;
     private boolean running = false;
     
+    private BattlePanel battlePanel;
+    
     private boolean gameStat = true;
     Timer timer;
     
@@ -70,6 +72,7 @@ public class GamePanel extends JPanel implements ActionListener{
         this.game = game;
         player = game.getPlayer();
         map = game.getMap();
+        
         startGame();
     }
     
@@ -78,6 +81,9 @@ public class GamePanel extends JPanel implements ActionListener{
         this.setBackground(Color.white);
         this.setFocusable(true);
         this.addKeyListener(new MyKeyAdapter());
+        battlePanel = new BattlePanel();
+        this.add(battlePanel);
+        battlePanel.setVisible(false);
     }
     
     private void readSprite() {
@@ -151,11 +157,20 @@ public class GamePanel extends JPanel implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(running){
+        if(game.getState().equals(State.RUNNING)){
+            battlePanel.setVisible(false);
             game.playerMovement(direction);
             direction = " ";
+            repaint();
         }
-        repaint();
+        else if(game.getState().equals(State.PAUSED)){
+            battlePanel.setVisible(true);
+            battlePanel.battle(game);
+            repaint();
+        }
+        else if(game.getState().equals(State.BATTLE)){
+            
+        }
     }
     
     public class MyKeyAdapter extends KeyAdapter {
