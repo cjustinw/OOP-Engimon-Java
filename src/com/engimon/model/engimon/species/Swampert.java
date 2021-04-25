@@ -21,6 +21,7 @@ public class Swampert extends Engimon {
         elements.add(new Ground());
         skills = new ArrayList<>();
         skills.add(new MudShot(false));
+        life = 1;
     }
     
     public String getImagePath() {

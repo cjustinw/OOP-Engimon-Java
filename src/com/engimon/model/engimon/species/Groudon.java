@@ -19,6 +19,7 @@ public class Groudon extends Engimon {
         elements.add(new Ground());
         skills = new ArrayList<>();
         skills.add(new Earthquake(false));
+        life = 1;
     }
     
     public String getImagePath() {

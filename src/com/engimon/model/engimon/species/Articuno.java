@@ -19,6 +19,7 @@ public class Articuno extends Engimon {
         elements.add(new Ice());
         skills = new ArrayList<>();
         skills.add(new IceBurn(false));
+        life = 1;
     }
     
     public String getImagePath() {

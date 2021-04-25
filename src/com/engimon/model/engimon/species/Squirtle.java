@@ -19,6 +19,7 @@ public class Squirtle extends Engimon {
         elements.add(new Water());
         skills = new ArrayList<>();
         skills.add(new WaterGun(false));
+        life = 1;
     }
     
     public String getImagePath() {

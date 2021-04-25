@@ -21,6 +21,7 @@ public class Rotom extends Engimon {
         elements.add(new Electric());
         skills = new ArrayList<>();
         skills.add(new Charge(false));
+        life = 1;
     }
     
     public String getImagePath() {

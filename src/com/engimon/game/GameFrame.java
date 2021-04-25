@@ -57,31 +57,40 @@ public class GameFrame extends javax.swing.JFrame {
     
     public void setActiveEngimonImg(){
         engimonImg.removeAll();
-        engimonImg.revalidate();
-        engimonImg.add(new EngimonPanel(game.getPlayer().getActiveEngimon(), new Dimension(250,250)));
+        if(game.getPlayer().getActiveEngimon() != null){
+            engimonImg.revalidate();
+            engimonImg.add(new EngimonPanel(game.getPlayer().getActiveEngimon(), new Dimension(250,250)));
+        }
         engimonImg.repaint();
     }
     
     public void setActiveEngimonProfile() {
-        JLabel label = new JLabel("Test");
-        String text = "<html> "
-            + "Name     : " + game.getPlayer().getActiveEngimon().getName() + "<br/>"
-            + "Species  : " + game.getPlayer().getActiveEngimon().getSpecies() + "<br/>"
-            + "Level    : " + game.getPlayer().getActiveEngimon().getLevel() + "<br/>"
-            + "EXP      : " + game.getPlayer().getActiveEngimon().getExp() + "<br/>"
-            + "Element  : " +  "<br/>";
-            for(int i = 0; i < game.getPlayer().getActiveEngimon().getElements().size(); i++) {
-                text = text
-                + "-    " + game.getPlayer().getActiveEngimon().getElements().get(i).getElmt().name() + "<br/>";
-            }
-            text = text + "Skill   : " +  "<br/>";
-            for(int i = 0; i < game.getPlayer().getActiveEngimon().getSkills().size(); i++) {
-                text = text
-                + "-    " + game.getPlayer().getActiveEngimon().getSkills().get(i).getSkillName() + " (lv."+ game.getPlayer().getActiveEngimon().getSkills().get(i).getMasteryLevel()  +")" + "<br/>";
-            }
-            text = text + "</html>";
-        engimonProfile.setText(text);
-        activeEngimonLabel.setVisible(true);
+        activeEngimonLabel.removeAll();
+        if(game.getPlayer().getActiveEngimon() != null) {
+            String text = "<html> "
+                + "Name     : " + game.getPlayer().getActiveEngimon().getName() + "<br/>"
+                + "Species  : " + game.getPlayer().getActiveEngimon().getSpecies() + "<br/>"
+                + "Level    : " + game.getPlayer().getActiveEngimon().getLevel() + "<br/>"
+                + "EXP      : " + game.getPlayer().getActiveEngimon().getExp() + "<br/>"
+                + "Element  : " +  "<br/>";
+                for(int i = 0; i < game.getPlayer().getActiveEngimon().getElements().size(); i++) {
+                    text = text
+                    + "-    " + game.getPlayer().getActiveEngimon().getElements().get(i).getElmt().name() + "<br/>";
+                }
+                text = text + "Skill   : " +  "<br/>";
+                for(int i = 0; i < game.getPlayer().getActiveEngimon().getSkills().size(); i++) {
+                    text = text
+                    + "-    " + game.getPlayer().getActiveEngimon().getSkills().get(i).getSkillName() + " (lv."+ game.getPlayer().getActiveEngimon().getSkills().get(i).getMasteryLevel()  +")" + "<br/>";
+                }
+                text = text + "</html>";
+            engimonProfile.setText(text);
+            activeEngimonLabel.setVisible(true);
+        }
+        else{
+            engimonProfile.setText("");
+            activeEngimonLabel.setVisible(true);
+        }
+        activeEngimonLabel.repaint();
     }
     public void setEngimonImg(){
         engimonImg.removeAll();
@@ -92,7 +101,6 @@ public class GameFrame extends javax.swing.JFrame {
     
     
     public void setEngimonProfile() {
-        JLabel label = new JLabel("Test");
         String text = "<html> "
             + "Name     : " + game.getPlayer().getEngimonAtIndex(selectEngimon.getSelectedIndex()-1).getName() + "<br/>"
             + "Species  : " + game.getPlayer().getEngimonAtIndex(selectEngimon.getSelectedIndex()-1).getSpecies() + "<br/>"

@@ -21,6 +21,7 @@ public class Lapras extends Engimon {
         elements.add((new Ice()));
         skills = new ArrayList<>();
         skills.add(new Mist(false));
+        life = 1;
     }
     
     public String getImagePath() {

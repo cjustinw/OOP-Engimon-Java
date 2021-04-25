@@ -19,6 +19,7 @@ public class Diglet extends Engimon {
         elements.add(new Ground());
         skills = new ArrayList<>();
         skills.add(new Dig(false));
+        life = 1;
     }
     
     public String getImagePath() {

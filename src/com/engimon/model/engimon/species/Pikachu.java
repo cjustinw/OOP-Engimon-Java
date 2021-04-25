@@ -19,6 +19,7 @@ public class Pikachu extends Engimon {
         elements.add(new Electric());
         skills = new ArrayList<>();
         skills.add(new ThunderBolt(false));
+        life = 1;
     }
     
     public String getImagePath() {

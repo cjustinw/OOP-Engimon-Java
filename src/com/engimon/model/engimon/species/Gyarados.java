@@ -19,6 +19,7 @@ public class Gyarados extends Engimon {
         elements.add(new Water());
         skills = new ArrayList<>();
         skills.add(new OceanicOperetta(false));
+        life = 1;
     }
     
     public String getImagePath() {

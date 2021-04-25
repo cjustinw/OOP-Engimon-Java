@@ -1,6 +1,6 @@
 package com.engimon.model.element;
 
-public class Element {
+public abstract class Element {
     protected ElmtType Elmt;
 
     public enum ElmtType {
@@ -14,5 +14,6 @@ public class Element {
     public ElmtType getElmt() {
         return this.Elmt;
     }
-
+    
+    public abstract double elementAdvantage(ElmtType Elmt);
 }
