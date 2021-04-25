@@ -168,8 +168,16 @@ public class Player implements Cellable{
     public Engimon getEngimonAtCell() {
         return null;
     }
-    
-//    /* Getter */
+
+    public int getActiveEngimonIndex() {
+        return engimonInventory.indexOf(activeEngimon);
+    }
+
+    public List<Engimon> getEngimonInventory() {
+        return engimonInventory;
+    }
+
+    //    /* Getter */
 //    public int getNumOfAllItem() {
 //        int skillCount = 0;
 //        for (int i = 0; i < getNumOfSkillItem(); i++) {
