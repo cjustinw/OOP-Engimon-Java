@@ -1,15 +1,18 @@
 package com.engimon.model.player;
 
 import com.engimon.model.engimon.Engimon;
+import com.engimon.model.inventory.CompareEngimon;
 import com.engimon.model.map.Cellable;
 import com.engimon.model.skill.Skill;
+import com.engimon.model.inventory.Inventory;
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Player implements Cellable{
-    private List<Engimon> engimonInventory;
-    private List<Skill> skillInventory;
+    private Inventory<Engimon> engimonInventory;
+    private Inventory<Skill> skillInventory;
     private int maxSkillItem;
     private int maxInventory;
     private int numOfItem;
@@ -28,8 +31,8 @@ public class Player implements Cellable{
 
     public Player(Point pos) {
         position = new Point(pos);
-        engimonInventory = new ArrayList<>();
-        skillInventory = new ArrayList<>();
+        engimonInventory = new Inventory<>();
+        skillInventory = new Inventory<>();
         maxSkillItem = 4;
         maxInventory = 30;
         numOfItem = 0;
@@ -61,22 +64,19 @@ public class Player implements Cellable{
     public String[] getAllEngimonName() {
         String[] names = new String[engimonInventory.size()];
         for(int i = 0; i < engimonInventory.size(); i++){
-            names[i] = engimonInventory.get(i).getName();
+            if(engimonInventory.get(i).getElements().size() == 1){
+                names[i] = engimonInventory.get(i).getName() + "/" + engimonInventory.get(i).getElements().get(0).getElmt().toString() + "/Lv." + engimonInventory.get(i).getLevel();
+            }
+            else{
+                names[i] = engimonInventory.get(i).getName() + "/" + engimonInventory.get(i).getElements().get(0).getElmt().toString() + " " + engimonInventory.get(i).getElements().get(1).getElmt().toString() + "/Lv." + engimonInventory.get(i).getLevel();
+            }
+            
         }
         return names;
     }
     
     public Engimon getEngimonAtIndex(int n) {
         return engimonInventory.get(n);
-    }
-    
-    public Engimon getEngimonByName(String name) {
-        for(int i = 0; i < engimonInventory.size(); i++){
-            if(engimonInventory.get(i).getName().equals(name)){
-                return engimonInventory.get(i);
-            }
-        }
-        return null;
     }
     
     public void setImagePath(String S, int n) {
@@ -121,6 +121,7 @@ public class Player implements Cellable{
     public void addEngimon(Engimon E) {
         if(!isInventoryFull()) {
             engimonInventory.add(E);
+            engimonInventory.sortEngimon();
             numOfItem++;
         }
         else {
@@ -168,6 +169,9 @@ public class Player implements Cellable{
     public Engimon getEngimonAtCell() {
         return null;
     }
+    
+    
+    
     
 //    /* Getter */
 //    public int getNumOfAllItem() {
