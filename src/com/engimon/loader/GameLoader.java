@@ -49,6 +49,7 @@ public class GameLoader {
         Point position = player.getPosition();
         int active = player.getActiveEngimonIndex();
         int countEngimon = player.getEngimonInventory().size();
+        int countSkillItem = player.getSkillInventory().size();
         String imagePath = player.getImagePath();
 
         pw = new PrintWriter(new FileWriter("state.txt"));
@@ -61,6 +62,12 @@ public class GameLoader {
 
         for (Engimon engimon: player.getEngimonInventory() ) {
             saveEngimon(engimon);
+        }
+        
+        pw.write(countSkillItem+"\n");
+        
+        for (Skill skillItem: player.getSkillInventory()) {
+            saveSkillItem(skillItem);
         }
         
         pw.write(game.getWildEngimons().size()+"\n");
@@ -110,6 +117,10 @@ public class GameLoader {
         pw.write(mastery + "\n");
         pw.write(numOfItem+"\n");
     }
+    
+    private void saveSkillItem(Skill skillItem) {
+        saveSkillEngimon(skillItem);
+    }
 
     public void save(String s) {
         pw.write(s+"");
@@ -133,6 +144,12 @@ public class GameLoader {
         int countEngimon = Integer.parseInt(reader.readLine());
         for (int i = 0; i < countEngimon; i++){
             player.addEngimon(loadEngimon());
+        }
+        
+        // load skill inventory
+        int countSkillItem = Integer.parseInt(reader.readLine());
+        for (int i = 0; i< countSkillItem; i++) {
+            player.addSkillItem(loadSkillItem());
         }
 
         // set active engimon
@@ -192,6 +209,10 @@ public class GameLoader {
         assert skill.getNumOfItem() == numOfItem; // biar lebih yakin
 
         return skill;
+    }
+    
+    private Skill loadSkillItem() throws IOException {
+        return loadSkillEngimon();
     }
 
     public String loadLine() throws IOException {

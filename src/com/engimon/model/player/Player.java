@@ -272,4 +272,8 @@ public class Player implements Cellable {
             }
         }
     }
+    
+    public List<Skill> getSkillInventory() {
+        return skillInventory.getMyInventory();
+    }
 }
