@@ -131,7 +131,7 @@ public class WildEngimon implements Runnable{
     public void run() {
         while(isAlive) {
             move();
-            if(countMove >= 1){
+            if(countMove >= 3){
                 if(!engimon.isMaxCumulativeExp()){
                     if(engimon.addExp(100)){
                         // do nothing
