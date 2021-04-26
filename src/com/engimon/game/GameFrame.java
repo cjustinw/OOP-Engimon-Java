@@ -48,6 +48,15 @@ public class GameFrame extends javax.swing.JFrame {
         panelEngimonConfig();
     }
     
+    public void loadGame() {
+        loadPanel();
+        game = new Game(true);
+        playerModePanel = new GamePanel(game);
+        gamePanel.add(playerModePanel);
+        
+        panelEngimonConfig();
+    }
+    
     public void panelEngimonConfig() {
         setActiveEngimonImg();
         setActiveEngimonProfile();
@@ -256,6 +265,11 @@ public class GameFrame extends javax.swing.JFrame {
         loadGameBtn.setFont(new java.awt.Font("ROG Fonts", 0, 24)); // NOI18N
         loadGameBtn.setText("Load");
         loadGameBtn.setFocusPainted(false);
+        loadGameBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loadGameBtnActionPerformed(evt);
+            }
+        });
 
         saveGameBtn.setFont(new java.awt.Font("ROG Fonts", 0, 24)); // NOI18N
         saveGameBtn.setText("Save");
@@ -707,6 +721,16 @@ public class GameFrame extends javax.swing.JFrame {
             game.save();
         }
     }//GEN-LAST:event_saveGameBtnActionPerformed
+
+    private void loadGameBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadGameBtnActionPerformed
+        // TODO add your handling code here:
+        newGameButton.setEnabled(running);
+        exitGameButton.setEnabled(!running);
+        if(!running){
+            loadGame();
+            running = true;
+        }
+    }//GEN-LAST:event_loadGameBtnActionPerformed
 
     /**
      * @param args the command line arguments

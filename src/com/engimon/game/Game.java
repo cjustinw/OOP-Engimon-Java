@@ -60,6 +60,30 @@ public class Game {
         initWildEngimon(20);
     }
     
+    public Game(boolean load) {
+        gameState = State.RUNNING;
+        map = new MapBoard();
+        player = new Player(new Point(16,11));
+        wildEngimon = new ArrayList<>();
+        currentWildEngimon = null;
+        player.addEngimon(new Raikou(6, new Point(16,10)));
+        player.setActiveEngimon(player.getEngimonAtIndex(0));
+
+        if (load) { 
+            try {
+                this.load();
+            } catch (IOException e) {
+                e.printStackTrace();
+                initWildEngimon(20);
+            }           
+        } else {
+            initWildEngimon(20);
+        }
+        
+        map.at(player.getPosition()).setObject(player);
+        map.at(player.getActiveEngimon().getPosition()).setObject(player.getActiveEngimon());
+    }
+    
     public State getState() {
         return gameState;
     }
@@ -310,15 +334,19 @@ public class Game {
     public void load() throws IOException {
 
         GameLoader gl = new GameLoader(player);
-
+        
         gl.load();
-
+        
         int countWild = Integer.parseInt(gl.loadLine());
 
         for (int i = 0; i < countWild; i++) {
             Engimon engimon = gl.loadEngimon();
             int speed = Integer.parseInt(gl.loadLine());
             wildEngimon.add(new WildEngimon(engimon, map, speed, wildEngimon));
+        }
+        
+        for(int i = 0; i < wildEngimon.size(); i++){
+            new Thread(wildEngimon.get(i)).start();
         }
     }
     

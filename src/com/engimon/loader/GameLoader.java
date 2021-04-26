@@ -63,6 +63,8 @@ public class GameLoader {
             saveEngimon(engimon);
         }
         
+        pw.write(game.getWildEngimons().size()+"\n");
+        
         for (WildEngimon engimon: game.getWildEngimons()) {
             saveEngimon(engimon.getEngimon());
             save(engimon.getSpeed()+"\n");
