@@ -1,7 +1,9 @@
 package com.engimon.loader;
 
+import com.engimon.game.Game;
 import com.engimon.model.engimon.CreateEngimon;
 import com.engimon.model.engimon.Engimon;
+import com.engimon.model.engimon.WildEngimon;
 import com.engimon.model.engimon.species.Charmander;
 import com.engimon.model.engimon.species.Diglet;
 import com.engimon.model.engimon.species.Entei;
@@ -38,6 +40,41 @@ public class GameLoader {
 
         for (Engimon engimon: player.getEngimonInventory() ) {
             saveEngimon(engimon);
+        }
+        
+        pw.close();
+    }
+    
+    public void save(Game game) throws IOException {
+        Point position = player.getPosition();
+        int active = player.getActiveEngimonIndex();
+        int countEngimon = player.getEngimonInventory().size();
+        int countSkillItem = player.getSkillInventory().size();
+        String imagePath = player.getImagePath();
+
+        pw = new PrintWriter(new FileWriter("state.txt"));
+
+        pw.write(position.x+"\n");
+        pw.write(position.y+"\n");
+        pw.write(active+"\n");
+        pw.write(imagePath+"\n");
+        pw.write(countEngimon+"\n");
+
+        for (Engimon engimon: player.getEngimonInventory() ) {
+            saveEngimon(engimon);
+        }
+        
+        pw.write(countSkillItem+"\n");
+        
+        for (Skill skillItem: player.getSkillInventory()) {
+            saveSkillItem(skillItem);
+        }
+        
+        pw.write(game.getWildEngimons().size()+"\n");
+        
+        for (WildEngimon engimon: game.getWildEngimons()) {
+            saveEngimon(engimon.getEngimon());
+            save(engimon.getSpeed()+"\n");
         }
 
         pw.close();
@@ -80,6 +117,10 @@ public class GameLoader {
         pw.write(mastery + "\n");
         pw.write(numOfItem+"\n");
     }
+    
+    private void saveSkillItem(Skill skillItem) {
+        saveSkillEngimon(skillItem);
+    }
 
     public void save(String s) {
         pw.write(s+"");
@@ -103,6 +144,12 @@ public class GameLoader {
         int countEngimon = Integer.parseInt(reader.readLine());
         for (int i = 0; i < countEngimon; i++){
             player.addEngimon(loadEngimon());
+        }
+        
+        // load skill inventory
+        int countSkillItem = Integer.parseInt(reader.readLine());
+        for (int i = 0; i< countSkillItem; i++) {
+            player.addSkillItem(loadSkillItem());
         }
 
         // set active engimon
@@ -162,6 +209,10 @@ public class GameLoader {
         assert skill.getNumOfItem() == numOfItem; // biar lebih yakin
 
         return skill;
+    }
+    
+    private Skill loadSkillItem() throws IOException {
+        return loadSkillEngimon();
     }
 
     public String loadLine() throws IOException {

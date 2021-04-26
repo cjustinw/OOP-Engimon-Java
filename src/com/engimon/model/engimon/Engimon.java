@@ -23,7 +23,7 @@ public abstract class Engimon implements Cellable {
     private boolean active;
     private String imagePath;
     
-    private static int MAX_CUMULATIVE_EXP = 5000;
+    private static int MAX_CUMULATIVE_EXP = 3000;
     
 
     public int getId() {
@@ -221,9 +221,5 @@ public abstract class Engimon implements Cellable {
         CreateSkillItem create = new CreateSkillItem();
         skills.add(create.createSkillItem(skill.getSkillId()));
         return 2; 
-    }
-    
-    public void removeSkillAtIndex(int idx) {
-        skills.remove(idx);
     }
 }

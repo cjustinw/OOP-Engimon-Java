@@ -61,7 +61,6 @@ public class BattlePanel extends javax.swing.JPanel {
         wildEngimonLabel.revalidate();
         activeEngimonImg.revalidate();
         wildEngimonImg.revalidate();
- 
         repaint();
     }
     
@@ -151,16 +150,11 @@ public class BattlePanel extends javax.swing.JPanel {
         result = new javax.swing.JLabel();
         continueBtn = new javax.swing.JButton();
 
-        setPreferredSize(new java.awt.Dimension(575, 535));
-        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
         activeEngimonLabel.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         activeEngimonLabel.setText("Engimon 1");
-        add(activeEngimonLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(91, 25, 113, 26));
 
         wildEngimonLabel.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         wildEngimonLabel.setText("Engimon 2");
-        add(wildEngimonLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(364, 25, 122, 26));
 
         javax.swing.GroupLayout activeEngimonImgLayout = new javax.swing.GroupLayout(activeEngimonImg);
         activeEngimonImg.setLayout(activeEngimonImgLayout);
@@ -173,8 +167,6 @@ public class BattlePanel extends javax.swing.JPanel {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
-        add(activeEngimonImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(91, 69, -1, -1));
-
         javax.swing.GroupLayout wildEngimonImgLayout = new javax.swing.GroupLayout(wildEngimonImg);
         wildEngimonImg.setLayout(wildEngimonImgLayout);
         wildEngimonImgLayout.setHorizontalGroup(
@@ -186,8 +178,6 @@ public class BattlePanel extends javax.swing.JPanel {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
-        add(wildEngimonImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(364, 69, -1, -1));
-
         battleBtn.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         battleBtn.setText("Battle!");
         battleBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -195,17 +185,14 @@ public class BattlePanel extends javax.swing.JPanel {
                 battleBtnActionPerformed(evt);
             }
         });
-        add(battleBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(474, 489, -1, -1));
 
         activeDesc.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
         activeDesc.setText("Engimon 1 Desc");
         activeDesc.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        add(activeDesc, new org.netbeans.lib.awtextra.AbsoluteConstraints(91, 187, 166, 238));
 
         wildDesc.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
         wildDesc.setText("Engimon 2 Desc");
         wildDesc.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        add(wildDesc, new org.netbeans.lib.awtextra.AbsoluteConstraints(364, 187, 175, 238));
 
         cancelBtn.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         cancelBtn.setText("Cancel");
@@ -214,13 +201,11 @@ public class BattlePanel extends javax.swing.JPanel {
                 cancelBtnActionPerformed(evt);
             }
         });
-        add(cancelBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 489, -1, -1));
 
         result.setFont(new java.awt.Font("Segoe UI Black", 0, 12)); // NOI18N
         result.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         result.setText("Result");
         result.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        add(result, new org.netbeans.lib.awtextra.AbsoluteConstraints(136, 431, 305, 52));
 
         continueBtn.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         continueBtn.setText("Continue");
@@ -229,7 +214,61 @@ public class BattlePanel extends javax.swing.JPanel {
                 continueBtnActionPerformed(evt);
             }
         });
-        add(continueBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(249, 489, -1, -1));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(91, 91, 91)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(activeEngimonLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(activeEngimonImg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(activeDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(wildEngimonLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(wildEngimonImg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(wildDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addComponent(cancelBtn)
+                        .addGap(142, 142, 142)
+                        .addComponent(continueBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(battleBtn)))
+                .addGap(36, 36, 36))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(result, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(134, 134, 134))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(activeEngimonLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(wildEngimonLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(activeEngimonImg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(wildEngimonImg, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(activeDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(wildDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(result, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(battleBtn)
+                    .addComponent(cancelBtn)
+                    .addComponent(continueBtn))
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
     }// </editor-fold>//GEN-END:initComponents
 
     private void battleBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_battleBtnActionPerformed
@@ -238,8 +277,8 @@ public class BattlePanel extends javax.swing.JPanel {
         setResult();
         result.setVisible(true);
         continueBtn.setVisible(true);
-        cancelBtn.setVisible(false);
-        battleBtn.setVisible(false);
+        cancelBtn.setEnabled(false);
+        battleBtn.setEnabled(false);
         repaint();
     }//GEN-LAST:event_battleBtnActionPerformed
 
@@ -256,8 +295,8 @@ public class BattlePanel extends javax.swing.JPanel {
         game.pauseWildEngimonMovement(false);
         result.setVisible(false);
         continueBtn.setVisible(false);
-        cancelBtn.setVisible(true);
-        battleBtn.setVisible(true);
+        cancelBtn.setEnabled(true);
+        battleBtn.setEnabled(true);
         repaint();
     }//GEN-LAST:event_continueBtnActionPerformed
 
