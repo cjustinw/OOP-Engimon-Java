@@ -43,13 +43,14 @@ public class GameLoader {
         pw.close();
     }
 
-    private void saveEngimon(Engimon engimon) {
+    public void saveEngimon(Engimon engimon) {
         int id = engimon.getId();
         String name = engimon.getName();
         int level = engimon.getLevel();
         int exp = engimon.getExp();
         int cumExp = engimon.getCumulativeExp();
         Point position = engimon.getPosition();
+        int skillLevel = engimon.getSkills().get(0).getMasteryLevel();
 
         pw.write("---------------------------------\n");
         pw.write(id+"\n");
@@ -59,10 +60,13 @@ public class GameLoader {
         pw.write(cumExp+"\n");
         pw.write(position.x+"\n");
         pw.write(position.y+"\n");
+
+        // skill bawaan yang disimpan hanyalah mastery level nya saja
+        pw.write(skillLevel+"\n");
         pw.write(engimon.getSkills().size()+"\n");
 
-        for (Skill skill: engimon.getSkills() ) {
-            saveSkillEngimon(skill);
+        for (int i=1; i < engimon.getSkills().size(); i++) {
+            saveSkillEngimon(engimon.getSkills().get(i));
         }
     }
 
@@ -75,6 +79,10 @@ public class GameLoader {
         pw.write(id+"\n");
         pw.write(mastery + "\n");
         pw.write(numOfItem+"\n");
+    }
+
+    public void save(String s) {
+        pw.write(s+"");
     }
 
     public void load() throws IOException {
@@ -101,7 +109,7 @@ public class GameLoader {
         player.setActiveEngimon(player.getEngimonAtIndex(activeIndex));
     }
 
-    private Engimon loadEngimon() throws IOException {
+    public Engimon loadEngimon() throws IOException {
         reader.readLine();
 
         int id = Integer.parseInt(reader.readLine());
@@ -117,6 +125,8 @@ public class GameLoader {
         Point position = new Point(Integer.parseInt(reader.readLine()),
                                     Integer.parseInt(reader.readLine()));
 
+        int skillLevel = Integer.parseInt(reader.readLine());
+
         Engimon engimon = (new CreateEngimon()).createEngimon(id, level, position);
         engimon.setName(name);
         engimon.setExp(exp);
@@ -124,7 +134,9 @@ public class GameLoader {
 
         int numOfSkill = Integer.parseInt(reader.readLine());
 
-        for (int i =0; i< numOfSkill; i++) {
+        engimon.getSkills().get(0).setMasteryLevel(skillLevel);
+
+        for (int i = 1; i< numOfSkill; i++) {
             engimon.learnSkill(loadSkillEngimon());
         }
 
@@ -150,6 +162,10 @@ public class GameLoader {
         assert skill.getNumOfItem() == numOfItem; // biar lebih yakin
 
         return skill;
+    }
+
+    public String loadLine() throws IOException {
+        return reader.readLine();
     }
 
     // Driver for gameloader
@@ -189,5 +205,11 @@ public class GameLoader {
         System.out.println("///////////// AFTER LOAD /////////////");
         System.out.println(newPlayer.getEngimonInventory().size());
         System.out.println(newPlayer.getPosition().x + "," + newPlayer.getPosition().y);
+
+        try {
+            gl.save();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -7,11 +7,12 @@ package com.engimon.model.engimon;
 
 import com.engimon.game.Random;
 import com.engimon.model.element.Element.ElmtType;
-import static com.engimon.model.element.Element.ElmtType.*;
 import com.engimon.model.map.CellType;
 import com.engimon.model.map.MapBoard;
+
 import java.awt.Point;
 import java.util.List;
+mport java.awt.*;
 
 /**
  *
@@ -73,6 +74,10 @@ public class WildEngimon implements Runnable{
     
     public Point getPosition() {
         return engimon.getPosition();
+    }
+
+    public int getSpeed() {
+        return speed;
     }
     
     private synchronized boolean engimonCollisions(int xtmp, int ytmp) {

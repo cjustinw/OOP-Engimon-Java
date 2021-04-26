@@ -131,6 +131,19 @@ public abstract class Engimon implements Cellable {
         }
     }
 
+    // buat save n load
+    public void setExp(int exp) {
+        this.exp = exp;
+    }
+
+    public void setCumulativeExp(int cExp) {
+        cumulativeExp = cExp;
+    }
+
+    public void setSkills(List<Skill> skills) {
+        this.skills = skills;
+    }
+
     /* return true jika naik level */
     public boolean addExp(int exp) {
         this.exp += exp;
