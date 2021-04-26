@@ -1,11 +1,17 @@
 package com.engimon.model.player;
 
+import com.engimon.model.element.Element.ElmtType;
+import com.engimon.model.engimon.CreateEngimon;
 import com.engimon.model.engimon.Engimon;
 import com.engimon.model.map.Cellable;
 import com.engimon.model.skill.Skill;
 import com.engimon.model.inventory.Inventory;
+import com.engimon.model.skill.CreateSkill;
 import com.engimon.model.skill.CreateSkillItem;
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class Player implements Cellable {
@@ -273,5 +279,83 @@ public class Player implements Cellable {
         }
     }
     
+    public Engimon breedEngimon(Engimon E1, Engimon E2) {
+        Engimon E;
+        Skill S;
+        CreateEngimon create = new CreateEngimon();
+        CreateSkill screate = new CreateSkill();
+        double E1advantage = E1.getElements().get(0).elementAdvantage(E2.getElements().get(0).getElmt());
+        double E2advantage = E2.getElements().get(0).elementAdvantage(E1.getElements().get(0).getElmt());
+        List<Skill> inheritSkill = new ArrayList<>();
+
+        for(int i = 0 ; i< E1.getSkills().size(); i++){
+            S = screate.createSkillItem(E1.getSkills().get(i).getSkillId());
+            S.setMasteryLevel(E1.getSkills().get(i).getMasteryLevel());
+            inheritSkill.add(S);
+        }
+        
+        for(int i = 0; i < E2.getSkills().size(); i++) {
+            boolean isSame = false;
+            for(int j = 0; j < inheritSkill.size(); j++) {
+                if(E2.getSkills().get(i).getSkillName().equals(inheritSkill.get(j).getSkillName())){
+                    if(inheritSkill.get(j).getMasteryLevel() < 3){
+                        inheritSkill.get(j).setMasteryLevel(inheritSkill.get(j).getMasteryLevel()+1);
+                    }
+                    isSame = true;
+                }
+            }
+            if(!isSame){
+                S = screate.createSkillItem(E2.getSkills().get(i).getSkillId());
+                S.setMasteryLevel(E2.getSkills().get(i).getMasteryLevel());
+                inheritSkill.add(S);
+            }
+        }
+        
+        Collections.sort(inheritSkill, new CompareSkillByMasteryLevel());
+            
+        if(E1advantage > E2advantage) {
+            E = create.createEngimon(E1.getId(), E1.getLevel(), new Point(-1,-1));
+        }
+        else if(E1advantage < E2advantage) {
+            E = create.createEngimon(E2.getId(), E2.getLevel(), new Point(-1,-1));
+        }
+        else{
+            if(E1.getElements().get(0).getElmt().equals(E2.getElements().get(0).getElmt())){
+                E = create.createEngimon(E1.getId(), E1.getLevel(), new Point(-1,-1));
+            }
+            else{
+                if(E1.getElements().get(0).getElmt().equals(ElmtType.FIRE) && E2.getElements().get(0).getElmt().equals(ElmtType.ELECTRIC) || E2.getElements().get(0).getElmt().equals(ElmtType.FIRE) && E1.getElements().get(0).getElmt().equals(ElmtType.ELECTRIC)) {
+                    E = create.createEngimon(7, E1.getLevel(), new Point(-1,-1));
+                }
+                else if (E1.getElements().get(0).getElmt().equals(ElmtType.WATER) && E2.getElements().get(0).getElmt().equals(ElmtType.ICE) || E2.getElements().get(0).getElmt().equals(ElmtType.WATER) && E1.getElements().get(0).getElmt().equals(ElmtType.ICE)){
+                    E = create.createEngimon(12, E1.getLevel(), new Point(-1,-1));
+                }
+                else{
+                    E = create.createEngimon(13, E1.getLevel(), new Point(-1,-1));
+                }
+            }
+        }
+        
+        int i = 0;
+        while(E.getSkills().size() < 4 && i < inheritSkill.size()){
+            if(E.getSkills().get(0).getSkillId() == inheritSkill.get(i).getSkillId()){
+                E.getSkills().add(1, inheritSkill.get(i));
+                E.getSkills().remove(0);
+            }
+            else{
+                E.getSkills().add(inheritSkill.get(i));
+            }
+            i++;
+        }
+        
+        engimonInventory.add(E);
+        return E;
+    }
     
+    class CompareSkillByMasteryLevel implements Comparator<Skill> {
+        @Override
+        public int compare(Skill a, Skill b) {
+            return b.getMasteryLevel() - a.getMasteryLevel();
+        }
+    }
 }

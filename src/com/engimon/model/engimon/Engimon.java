@@ -222,4 +222,8 @@ public abstract class Engimon implements Cellable {
         skills.add(create.createSkillItem(skill.getSkillId()));
         return 2; 
     }
+    
+    public void removeSkillAtIndex(int idx) {
+        skills.remove(idx);
+    }
 }
