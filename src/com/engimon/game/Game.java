@@ -323,7 +323,7 @@ public class Game {
         for (int i = 0; i < countWild; i++) {
             Engimon engimon = gl.loadEngimon();
             int speed = Integer.parseInt(gl.loadLine());
-            wildEngimon.add(new WildEngimon(engimon, map, speed));
+            wildEngimon.add(new WildEngimon(engimon, map, speed, wildEngimon));
         }
     }
 }

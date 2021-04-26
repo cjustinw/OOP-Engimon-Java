@@ -41,14 +41,6 @@ public abstract class Engimon implements Cellable {
     public int getLevel() {
         return level;
     }
-    
-    public void setExp(int exp) {
-        this.exp = exp;
-    }
-    
-    public void setCumulativeExp(int cumExp) {
-        cumulativeExp = cumExp;
-    }
 
     public int getExp() {
         return exp;
