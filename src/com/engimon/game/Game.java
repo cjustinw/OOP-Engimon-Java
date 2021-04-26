@@ -5,6 +5,7 @@
  */
 package com.engimon.game;
 
+import com.engimon.loader.GameLoader;
 import com.engimon.model.engimon.WildEngimon;
 import com.engimon.model.engimon.CreateEngimon;
 import com.engimon.model.engimon.Engimon;
@@ -13,6 +14,7 @@ import com.engimon.model.map.CellType;
 import com.engimon.model.map.MapBoard;
 import com.engimon.model.player.Player;
 import java.awt.Point;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -226,5 +228,26 @@ public class Game {
             }
         }
         return output;
+    }
+
+    public void save() {
+        pauseWildEngimonMovement(true);
+
+        // isi save
+        GameLoader gl = new GameLoader(player);
+
+        try {
+            gl.save();
+
+            for (WildEngimon engimon: wildEngimon) {
+                gl.saveEngimon(engimon.getEngimon());
+                gl.save(engimon.getSpeed()+"\n");
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        pauseWildEngimonMovement(false);
     }
 }

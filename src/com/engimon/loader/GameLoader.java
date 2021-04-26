@@ -43,7 +43,7 @@ public class GameLoader {
         pw.close();
     }
 
-    private void saveEngimon(Engimon engimon) {
+    public void saveEngimon(Engimon engimon) {
         int id = engimon.getId();
         String name = engimon.getName();
         int level = engimon.getLevel();
@@ -79,6 +79,10 @@ public class GameLoader {
         pw.write(id+"\n");
         pw.write(mastery + "\n");
         pw.write(numOfItem+"\n");
+    }
+
+    public void save(String s) {
+        pw.write(s+"");
     }
 
     public void load() throws IOException {
