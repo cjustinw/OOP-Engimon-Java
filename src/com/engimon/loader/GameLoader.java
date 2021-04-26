@@ -1,7 +1,9 @@
 package com.engimon.loader;
 
+import com.engimon.game.Game;
 import com.engimon.model.engimon.CreateEngimon;
 import com.engimon.model.engimon.Engimon;
+import com.engimon.model.engimon.WildEngimon;
 import com.engimon.model.engimon.species.Charmander;
 import com.engimon.model.engimon.species.Diglet;
 import com.engimon.model.engimon.species.Entei;
@@ -38,6 +40,32 @@ public class GameLoader {
 
         for (Engimon engimon: player.getEngimonInventory() ) {
             saveEngimon(engimon);
+        }
+        
+        pw.close();
+    }
+    
+    public void save(Game game) throws IOException {
+        Point position = player.getPosition();
+        int active = player.getActiveEngimonIndex();
+        int countEngimon = player.getEngimonInventory().size();
+        String imagePath = player.getImagePath();
+
+        pw = new PrintWriter(new FileWriter("state.txt"));
+
+        pw.write(position.x+"\n");
+        pw.write(position.y+"\n");
+        pw.write(active+"\n");
+        pw.write(imagePath+"\n");
+        pw.write(countEngimon+"\n");
+
+        for (Engimon engimon: player.getEngimonInventory() ) {
+            saveEngimon(engimon);
+        }
+        
+        for (WildEngimon engimon: game.getWildEngimons()) {
+            saveEngimon(engimon.getEngimon());
+            save(engimon.getSpeed()+"\n");
         }
 
         pw.close();

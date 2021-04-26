@@ -260,6 +260,11 @@ public class GameFrame extends javax.swing.JFrame {
         saveGameBtn.setFont(new java.awt.Font("ROG Fonts", 0, 24)); // NOI18N
         saveGameBtn.setText("Save");
         saveGameBtn.setFocusPainted(false);
+        saveGameBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveGameBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout optionPanelLayout = new javax.swing.GroupLayout(optionPanel);
         optionPanel.setLayout(optionPanelLayout);
@@ -695,6 +700,13 @@ public class GameFrame extends javax.swing.JFrame {
         setEngimonInventory();
         setSkillItemInventory();
     }//GEN-LAST:event_useSkillItemBtnActionPerformed
+
+    private void saveGameBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveGameBtnActionPerformed
+        // TODO add your handling code here:
+        if (running) {
+            game.save();
+        }
+    }//GEN-LAST:event_saveGameBtnActionPerformed
 
     /**
      * @param args the command line arguments

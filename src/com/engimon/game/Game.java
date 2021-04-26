@@ -298,12 +298,7 @@ public class Game {
         GameLoader gl = new GameLoader(player);
 
         try {
-            gl.save();
-
-            for (WildEngimon engimon: wildEngimon) {
-                gl.saveEngimon(engimon.getEngimon());
-                gl.save(engimon.getSpeed()+"\n");
-            }
+            gl.save(this);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -325,5 +320,9 @@ public class Game {
             int speed = Integer.parseInt(gl.loadLine());
             wildEngimon.add(new WildEngimon(engimon, map, speed, wildEngimon));
         }
+    }
+    
+    public List<WildEngimon> getWildEngimons() {
+        return wildEngimon;
     }
 }
