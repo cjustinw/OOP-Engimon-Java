@@ -3,7 +3,8 @@ package com.engimon.model.player;
 import com.engimon.model.engimon.Engimon;
 import com.engimon.model.map.Cellable;
 import com.engimon.model.skill.Skill;
-import com.engimon.model.Inventory.Inventory;
+import com.engimon.model.inventory.Inventory;
+import com.engimon.model.skill.CreateSkillItem;
 import java.awt.Point;
 import java.util.List;
 
@@ -11,7 +12,7 @@ public class Player implements Cellable {
     private Inventory<Engimon> engimonInventory;
     private Inventory<Skill> skillInventory;
     private int maxSkillItem;
-    private int maxInventory;
+    private int maxInventory = 20;
     private int numOfItem;
     private Point position;
     private Engimon activeEngimon;
@@ -31,8 +32,6 @@ public class Player implements Cellable {
         engimonInventory = new Inventory<>();
         skillInventory = new Inventory<>();
         maxSkillItem = 4;
-        maxInventory = 30;
-        numOfItem = 0;
         activeEngimon = null;
         imageDownPath = "resources/sprites/player/down1.png";
         imageDown1Path = "resources/sprites/player/down2.png";
@@ -57,21 +56,34 @@ public class Player implements Cellable {
     public String getImagePath() {
         return imagePath;
     }
+    
+    public int getNumOfEngimon() {
+        return engimonInventory.size();
+    }
 
     public String[] getAllEngimonName() {
         String[] names = new String[engimonInventory.size()];
         for (int i = 0; i < engimonInventory.size(); i++) {
             if (engimonInventory.get(i).getElements().size() == 1) {
-                names[i] = engimonInventory.get(i).getName() + "/"
-                        + engimonInventory.get(i).getElements().get(0).getElmt().toString() + "/Lv."
+                names[i] = engimonInventory.get(i).getName() + " / "
+                        + engimonInventory.get(i).getElements().get(0).getElmt().toString() + " / Lv."
                         + engimonInventory.get(i).getLevel();
             } else {
-                names[i] = engimonInventory.get(i).getName() + "/"
+                names[i] = engimonInventory.get(i).getName() + " / "
                         + engimonInventory.get(i).getElements().get(0).getElmt().toString() + " "
-                        + engimonInventory.get(i).getElements().get(1).getElmt().toString() + "/Lv."
+                        + engimonInventory.get(i).getElements().get(1).getElmt().toString() + " / Lv."
                         + engimonInventory.get(i).getLevel();
             }
-
+        }
+        return names;
+    }
+    
+    public String[] getAllSkillItemName() {
+        String[] names = new String[skillInventory.size()];
+        for (int i = 0; i < skillInventory.size(); i++) {
+            names[i] = skillInventory.get(i).getSkillName() + " / "
+                    + skillInventory.get(i).getSkillDamage() + " / x"
+                    + skillInventory.get(i).getNumOfItem();
         }
         return names;
     }
@@ -79,7 +91,11 @@ public class Player implements Cellable {
     public Engimon getEngimonAtIndex(int n) {
         return engimonInventory.get(n);
     }
-
+    
+    public Skill getSkillItemAtIndex(int n) {
+        return skillInventory.get(n);
+    }
+     
     public void setImagePath(String S, int n) {
         if (S.equals("U")) {
             if (n == 1) {
@@ -109,7 +125,7 @@ public class Player implements Cellable {
     }
 
     public boolean isInventoryFull() {
-        return numOfItem >= maxInventory;
+        return getNumOfEngimon() + getNumOfSkillItem()>= maxInventory;
     }
 
     public void addEngimon(Engimon E) {
@@ -118,16 +134,35 @@ public class Player implements Cellable {
             E.setPosition(new Point(-1,-1));
             engimonInventory.add(E);
             engimonInventory.sortEngimon();
-            numOfItem++;
         } else {
             // throw
         }
     }
+    
+    public int getNumOfSkillItem() {
+        int count = 0;
+        for(int i = 0; i < skillInventory.size(); i++) {
+            count += skillInventory.get(i).getNumOfItem();
+        }
+        return count;
+    }
 
     public void addSkillItem(Skill S) {
         if (!isInventoryFull()) {
-            skillInventory.add(S);
-            numOfItem++;
+            boolean found = false;
+            for(int i = 0; i < skillInventory.size(); i++){
+                if(skillInventory.get(i).getSkillName().equals(S.getSkillName())){
+                    found = true;
+                    skillInventory.get(i).addItem();
+                    break;
+                }
+            }
+            if(!found){
+                CreateSkillItem create = new CreateSkillItem();
+                skillInventory.add(create.createSkillItem(S.getSkillId()));
+                skillInventory.sortSkillItem();
+            }
+            
         } else {
             // throw
         }
@@ -171,14 +206,17 @@ public class Player implements Cellable {
         return activeEngimon;
     }
 
+    @Override
     public char getSymbol() {
         return 'P';
     }
 
+    @Override
     public boolean isEngimon() {
         return false;
     }
 
+    @Override
     public Engimon getEngimonAtCell() {
         return null;
     }
@@ -189,5 +227,49 @@ public class Player implements Cellable {
 
     public List<Engimon> getEngimonInventory() {
         return engimonInventory.getMyInventory();
+    }
+    
+    public void removeEngimonAtIndex(int idx){
+        engimonInventory.remove(idx);
+    }
+    
+    public void removeSkillItemAtIndex(int idx){
+        if(skillInventory.get(idx).getNumOfItem() > 1){
+            skillInventory.get(idx).useItem();
+        }
+        else{
+            skillInventory.remove(idx);
+        }
+    }
+    
+    public int getHighestLevelEngimon() {
+        int max = 0;
+        for(int i = 0; i < engimonInventory.size(); i++){
+            if(engimonInventory.get(i).getLevel() > max) {
+                max = engimonInventory.get(i).getLevel();
+            }
+        }
+        return max;
+    }
+    
+    public String learnSkillItem(int idxE, int idxS ) {
+        Engimon E = getEngimonAtIndex(idxE);
+        Skill S = getSkillItemAtIndex(idxS);
+        int result = E.learnSkill(S);
+        switch (result) {
+            case -1 -> {
+                return "Cannot learn any new skills anymore";
+            }
+            case 0 -> {
+                return "Incompatible Skill Item";
+            }
+            case 1 -> {
+                return E.getName() + " has already learned the skill";
+            }
+            default -> {
+                removeSkillItemAtIndex(idxS);
+                return E.getName() + " has learned " + S.getSkillName();
+            }
+        }
     }
 }

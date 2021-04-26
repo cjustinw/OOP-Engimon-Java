@@ -69,6 +69,9 @@ public class BattlePanel extends javax.swing.JPanel {
             String text = "<html> "
                + "Species  : " + game.getPlayer().getActiveEngimon().getSpecies() + "<br/>"
                + "Level    : " + game.getPlayer().getActiveEngimon().getLevel() + "<br/>"
+               + "EXP      : " + game.getPlayer().getActiveEngimon().getExp() + "/" + game.getPlayer().getActiveEngimon().getLevel()*100 + "<br/>"
+               + "cEXP      : " + game.getPlayer().getActiveEngimon().getCumulativeExp() + "/" + game.getPlayer().getActiveEngimon().getMaxCumulativeExp() + "<br/>"
+               + "Life      : " + game.getPlayer().getActiveEngimon().getLife() + "<br/>"
                + "Element  : " +  "<br/>";
                for(int i = 0; i < game.getPlayer().getActiveEngimon().getElements().size(); i++) {
                    text = text
@@ -94,6 +97,9 @@ public class BattlePanel extends javax.swing.JPanel {
         String text = "<html> "
             + "Species  : " + game.getCurrentWildEngimon().getSpecies() + "<br/>"
             + "Level    : " + game.getCurrentWildEngimon().getLevel() + "<br/>"
+            + "EXP      : " + game.getCurrentWildEngimon().getExp() + "/" + game.getCurrentWildEngimon().getLevel()*100 + "<br/>"
+            + "cEXP      : " + game.getCurrentWildEngimon().getCumulativeExp() + "/" + game.getCurrentWildEngimon().getMaxCumulativeExp() + "<br/>"
+            + "Life      : " + game.getCurrentWildEngimon().getLife() + "<br/>"
             + "Element  : " +  "<br/>";
             for(int i = 0; i < game.getCurrentWildEngimon().getElements().size(); i++) {
                 text = text
@@ -116,7 +122,10 @@ public class BattlePanel extends javax.swing.JPanel {
     public void setResult() {
         String text = "<html> "
             + output.get(0) + "<br/>"
-            + output.get(1) + "</html>";
+            + output.get(1) + "<br/>";
+        if(output.size() == 3){
+            text = text + output.get(2) + "</html>";
+        }
         result.setText(text);
         repaint();
     }

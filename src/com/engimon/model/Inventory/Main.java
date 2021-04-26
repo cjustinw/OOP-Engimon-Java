@@ -1,4 +1,4 @@
-package com.engimon.model.Inventory;
+package com.engimon.model.inventory;
 
 public class Main {
     public static void main(String[] args) {

@@ -1,6 +1,7 @@
-package com.engimon.model.Inventory;
+package com.engimon.model.inventory;
 
 import com.engimon.model.engimon.Engimon;
+import com.engimon.model.skill.Skill;
 import java.util.*;
 
 public class Inventory<T> {
@@ -26,13 +27,9 @@ public class Inventory<T> {
     }
 
     public void remove(int idx) {
-        if (numOfElement == 0) {
-            System.out.println("cannot delete, empty inventory");
-        } else {
-            System.out.println("deleted 1 item");
-            this.myinventory.remove(idx);
-            this.numOfElement -= 1;
-        }
+        this.myinventory.remove(idx);
+        this.numOfElement -= 1;
+        
     }
 
     public T get(int idx) {
@@ -40,7 +37,11 @@ public class Inventory<T> {
     }
 
     public void sortEngimon() {
-        Collections.sort(myinventory, new CompareEngimonByElement().thenComparing(new CompareEngimonByLevel()));
+        Collections.sort(myinventory, new CompareEngimonByElement().thenComparing(new CompareEngimonByLevel().thenComparing(new CompareEngimonByName())));
+    }
+    
+    public void sortSkillItem() {
+        Collections.sort(myinventory, new CompareSkillItemByDamage());
     }
 
     public int size() {
@@ -77,5 +78,22 @@ public class Inventory<T> {
             return b1.getLevel() - a1.getLevel();
         }
     }
-
+    
+    class CompareEngimonByName implements Comparator<T> {
+        @Override
+        public int compare(T a, T b) {
+            Engimon a1 = (Engimon) a;
+            Engimon b1 = (Engimon) b;
+            return a1.getName().compareTo(b1.getName());
+        }
+    }
+    
+    class CompareSkillItemByDamage implements Comparator<T> {
+        @Override
+        public int compare(T a, T b) {
+            Skill a1 = (Skill) a;
+            Skill b1 = (Skill) b;
+            return b1.getSkillDamage() - a1.getSkillDamage();
+        }
+    }
 }

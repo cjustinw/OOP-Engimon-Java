@@ -56,7 +56,6 @@ public class GamePanel extends JPanel implements ActionListener{
     
     private BattlePanel battlePanel;
     
-    private boolean gameStat = true;
     Timer timer;
     
     /* Sementara buat testing */
@@ -161,6 +160,9 @@ public class GamePanel extends JPanel implements ActionListener{
             battlePanel.setVisible(false);
             game.playerMovement(direction);
             direction = " ";
+            if(game.isWildEngimonLessThanBefore()) {
+                game.spawnRandomWildEngimon();
+            }
             repaint();
         }
         else if(game.getState().equals(State.BATTLE)){
@@ -173,39 +175,26 @@ public class GamePanel extends JPanel implements ActionListener{
     public class MyKeyAdapter extends KeyAdapter {
         @Override
         public void keyPressed(KeyEvent e){
-            if(gameStat){
-                switch(e.getKeyCode()) {
-                    case KeyEvent.VK_A:
-                        if(!direction.equals("R")) {
-                            direction = "L";
-                        }
-                        break;
-                    case KeyEvent.VK_D:
-                        if(!direction.equals("L")) {
-                            direction = "R";
-                        }
-                        break;
-                    case KeyEvent.VK_W:
-                        if(!direction.equals("D")) {
-                            direction = "U";
-                        }
-                        break;
-                    case KeyEvent.VK_S:
-                        if(!direction.equals("U")) {
-                            direction = "D";
-                        }
-                        break;
-                    case KeyEvent.VK_ESCAPE:
-//                        gameStat = false;
-                    
+            switch(e.getKeyCode()) {
+                case KeyEvent.VK_A -> {
+                    if(!direction.equals("R")) {
+                        direction = "L";
+                    }
                 }
-            }
-            else{
-                switch(e.getKeyCode()) {
-                    case KeyEvent.VK_ESCAPE:
-                        gameStat = true;
-                        removeAll();
-                        updateUI();
+                case KeyEvent.VK_D -> {
+                    if(!direction.equals("L")) {
+                        direction = "R";
+                    }
+                }
+                case KeyEvent.VK_W -> {
+                    if(!direction.equals("D")) {
+                        direction = "U";
+                    }
+                }
+                case KeyEvent.VK_S -> {
+                    if(!direction.equals("U")) {
+                        direction = "D";
+                    }
                 }
             }
         }

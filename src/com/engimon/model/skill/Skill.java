@@ -45,20 +45,6 @@ public abstract class Skill {
         this.numOfItem = 1;
     }
 
-    public void addSkill() {
-        if (!item) {
-            // throw
-        }
-        numOfItem++;
-    }
-
-    public void useSkill() {
-        if (!item) {
-            // throw
-        }
-        numOfItem--;
-    }
-
     public void setMasteryLevel(int lvl) {
         this.masteryLevel = lvl;
     }
