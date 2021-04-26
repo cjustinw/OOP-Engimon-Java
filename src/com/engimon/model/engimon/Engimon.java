@@ -2,6 +2,7 @@ package com.engimon.model.engimon;
 
 import com.engimon.model.element.Element;
 import com.engimon.model.map.Cellable;
+import com.engimon.model.skill.CreateSkillItem;
 import com.engimon.model.skill.Skill;
 
 import java.awt.*;
@@ -22,6 +23,8 @@ public abstract class Engimon implements Cellable {
     private boolean active;
     private String imagePath;
     
+    private static int MAX_CUMULATIVE_EXP = 3000;
+    
 
     public int getId() {
         return id;
@@ -38,6 +41,14 @@ public abstract class Engimon implements Cellable {
     public int getLevel() {
         return level;
     }
+    
+    public void setExp(int exp) {
+        this.exp = exp;
+    }
+    
+    public void setCumulativeExp(int cumExp) {
+        cumulativeExp = cumExp;
+    }
 
     public int getExp() {
         return exp;
@@ -45,6 +56,10 @@ public abstract class Engimon implements Cellable {
 
     public int getCumulativeExp() {
         return cumulativeExp;
+    }
+    
+    public int getMaxCumulativeExp() {
+        return MAX_CUMULATIVE_EXP;
     }
     
     public List<Skill> getSkills() {
@@ -79,6 +94,10 @@ public abstract class Engimon implements Cellable {
         else {
             //throw
         }
+    }
+    
+    public boolean isMaxCumulativeExp() {
+        return cumulativeExp >= MAX_CUMULATIVE_EXP;
     }
     
     public void setActive() {
@@ -148,21 +167,20 @@ public abstract class Engimon implements Cellable {
 
     public abstract String interact();
     
+    @Override
     public abstract String getImagePath();
 
-    public void learnSkill(Skill skill){
-        skills.add(skill);
-        numOfSkill++;
-    }
-    
+    @Override
     public char getSymbol() {
         return 'E';
     }
     
+    @Override
     public boolean isEngimon() {
         return true;
     }
     
+    @Override
     public Engimon getEngimonAtCell() {
         return this;
     }
@@ -183,5 +201,33 @@ public abstract class Engimon implements Cellable {
         }
         
         return level * maxAdvantage + (double)sumPower;
+    }
+    
+    public int learnSkill(Skill skill){
+        boolean found = false;
+        if(skills.size() >= 4){
+            return -1;
+        }
+        for(int i = 0; i < elements.size(); i++) {
+            for(int j = 0; j < skill.getPrereqElmt().size(); j++) {
+                if(elements.get(i).getElmt().equals(skill.getPrereqElmt().get(j).getElmt())) {
+                    found = true;
+                    break;
+                }
+            }
+        }
+        if(!found) { 
+            return 0; 
+            
+        }
+        for(int i = 0; i < skills.size(); i++) {
+            if(skills.get(i).getSkillId() == skill.getSkillId()){
+                return 1; 
+            }
+        }
+        skill.useItem();
+        CreateSkillItem create = new CreateSkillItem();
+        skills.add(create.createSkillItem(skill.getSkillId()));
+        return 2; 
     }
 }

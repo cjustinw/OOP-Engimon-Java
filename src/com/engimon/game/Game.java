@@ -11,6 +11,9 @@ import com.engimon.model.engimon.Engimon;
 import com.engimon.model.engimon.WildEngimon;
 import com.engimon.model.engimon.species.Raikou;
 import com.engimon.model.map.CellType;
+import static com.engimon.model.map.CellType.GRASSLAND_STREET;
+import static com.engimon.model.map.CellType.MOUNTAINS_BORDER;
+import static com.engimon.model.map.CellType.SEA_BORDER;
 import com.engimon.model.map.MapBoard;
 import com.engimon.model.player.Player;
 
@@ -102,7 +105,7 @@ public class Game {
                 default ->      id = rand.getRandomNumber(10, 11);
             }
             
-            engimon = new WildEngimon(create.createEngimon(id, lvl, pos), map, rand.getRandomNumber(900, 1100));
+            engimon = new WildEngimon(create.createEngimon(id, lvl, pos), map, rand.getRandomNumber(900, 1100), wildEngimon);
             wildEngimon.add(engimon);
             map.at(engimon.getPosition()).setObject(engimon.getEngimon());
         }
@@ -116,6 +119,46 @@ public class Game {
         for(int i = 0; i < wildEngimon.size(); i++){
             wildEngimon.get(i).setPaused(pause);
         }
+    }
+    
+    public void spawnRandomWildEngimon() {
+        pauseWildEngimonMovement(true);
+        WildEngimon engimon;
+        Random rand = new Random();
+        CreateEngimon create = new CreateEngimon();
+        Point pos;
+        do{
+            pos = new Point(rand.getRandomNumber(0, SIZE_LENGTH-1), rand.getRandomNumber(0, SIZE_WIDTH-1));
+        } while(!map.isPositionValid(pos) || map.at(pos).isFull() || map.at(pos).getType().equals(CellType.ROCK_STAIR));
+            
+        int lvl = rand.getRandomNumber(player.getHighestLevelEngimon(), player.getHighestLevelEngimon() + 3);
+            
+        int id;
+       
+        switch (map.at(pos).getType()) {
+            case GRASSLAND, GRASSLAND_STREET -> id = rand.getRandomNumber(3, 7);
+            case MOUNTAINS, MOUNTAINS_BORDER -> id = rand.getRandomNumber(1, 2);
+            case SEA, SEA_BORDER -> {
+                do{
+                    id = rand.getRandomNumber(8, 13);
+                } while(id == 10 || id == 11);
+            }
+            default -> id = rand.getRandomNumber(10, 11);
+        }
+            
+        engimon = new WildEngimon(create.createEngimon(id, lvl, pos), map, rand.getRandomNumber(900, 1100), wildEngimon);
+        wildEngimon.add(engimon);
+        map.at(engimon.getPosition()).setObject(engimon.getEngimon());
+        new Thread(engimon).start();
+        pauseWildEngimonMovement(false);
+    }
+    
+    public int getNumOfWildEngimon() {
+        return wildEngimon.size();
+    }
+    
+    public boolean isWildEngimonLessThanBefore() {
+        return wildEngimon.size() < 20;
     }
  
     public void playerMovement(String direction) {
@@ -200,16 +243,33 @@ public class Game {
         
         if(activePower >= wildPower) {
             output.add(player.getActiveEngimon().getName() + " Win!");
-            if(!player.isInventoryFull()){
-                for(int i = 0; i < wildEngimon.size(); i++){
-                    if(wildEngimon.get(i).getEngimon() == currentWildEngimon){
-                        wildEngimon.remove(i);
-                        map.at(currentWildEngimon.getPosition()).setObject(null);
-                        break;
-                    }
+            if(player.getActiveEngimon().isMaxCumulativeExp()){
+                map.at(player.getActiveEngimon().getPosition()).setObject(null);
+                player.removeEngimon(player.getActiveEngimon());
+                player.setActiveEngimon(null);
+            }
+            if(player.getActiveEngimon() != null) {
+                if(player.getActiveEngimon().addExp(100*currentWildEngimon.getLevel())){
+                // output.add(    );
                 }
+            }
+            for(int i = 0; i < wildEngimon.size(); i++){
+                if(wildEngimon.get(i).getEngimon() == currentWildEngimon){
+                    wildEngimon.remove(i);
+                    map.at(currentWildEngimon.getPosition()).setObject(null);
+                    break;
+                }
+            }
+            if(!player.isInventoryFull()){
                 player.addEngimon(currentWildEngimon);
                 output.add(currentWildEngimon.getName() + " will be added to your Inventory!");
+            }
+            else{
+                output.add("Your Inventory is full!");
+            }
+            if(!player.isInventoryFull()){
+                player.addSkillItem(currentWildEngimon.getSkills().get(0));
+                output.add(currentWildEngimon.getSkills().get(0).getSkillName() + " will be added to your Inventory!");
             }
             else{
                 output.add("Your Inventory is full!");

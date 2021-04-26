@@ -10,7 +10,9 @@ import com.engimon.model.element.Element.ElmtType;
 import com.engimon.model.map.CellType;
 import com.engimon.model.map.MapBoard;
 
-import java.awt.*;
+import java.awt.Point;
+import java.util.List;
+mport java.awt.*;
 
 /**
  *
@@ -23,13 +25,21 @@ public class WildEngimon implements Runnable{
     private Engimon engimon;
     private MapBoard map;
     private int speed;
+    private List<WildEngimon> list;
     private boolean isPaused;
+    private boolean isAlive;
     
-    public WildEngimon(Engimon engimon, MapBoard map, int speed){
+    
+    private int countMove;
+    
+    public WildEngimon(Engimon engimon, MapBoard map, int speed, List<WildEngimon> list){
         isPaused = false;
         this.engimon = engimon;
         this.map = map;
         this.speed = speed;
+        this.list = list;
+        countMove = 0;
+        isAlive = true;
     }
     
     public Engimon getEngimon() {
@@ -58,6 +68,7 @@ public class WildEngimon implements Runnable{
             map.at(engimon.getPosition()).setObject(null);
             engimon.setPosition(pos);
             map.at(pos).setObject(engimon);
+            countMove++;
         }
     }
     
@@ -119,10 +130,27 @@ public class WildEngimon implements Runnable{
     
     @Override
     public void run() {
-        while(true) {
+        while(isAlive) {
             move();
+            if(countMove >= 1){
+                if(!engimon.isMaxCumulativeExp()){
+                    if(engimon.addExp(100)){
+                        // do nothing
+                    }
+                }
+                else{
+                    for(int i = 0; i < list.size(); i++){
+                        if(engimon == list.get(i).getEngimon()){
+                            list.remove(i);
+                            map.at(engimon.getPosition()).setObject(null);
+                            isAlive = false;
+                            break;
+                        }
+                    }
+                }
+                countMove = 0;
+            }
             try{
-                
                 Thread.sleep(speed);
             } catch(InterruptedException e) {
                 

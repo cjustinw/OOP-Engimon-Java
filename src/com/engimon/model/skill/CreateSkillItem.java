@@ -6,7 +6,6 @@
 package com.engimon.model.skill;
 
 import com.engimon.model.skill.type.*;
-import java.util.Random;
 
 /**
  *
@@ -16,6 +15,19 @@ public class CreateSkillItem {
 
     public Skill createSkillItem(int id) {
         return switch (id) {
+            case 1 -> new BlastBurn(true);
+            case 2 -> new Eruption(true);
+            case 3 -> new ThunderBolt(true);
+            case 4 -> new Catastropika(true);
+            case 5 -> new Dig(true);
+            case 6 -> new Earthquake(true);
+            case 7 -> new WaterGun(true);
+            case 8 -> new OceanicOperetta(true);
+            case 9 -> new FreezeShock(true);
+            case 10 -> new IceBurn(true);
+            case 11 -> new Charge(true);
+            case 12 -> new Mist(true);
+            case 13 -> new MudShot(true);                
             case 14 -> new Ember(true);
             case 15 -> new FireBlast(true);
             case 16 -> new FireFang(true);
