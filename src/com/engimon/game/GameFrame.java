@@ -34,6 +34,7 @@ public class GameFrame extends javax.swing.JFrame {
         tabPanel.removeAll();
         tabPanel.add(optionPanel, "Option");
         exitGameButton.setEnabled(running);
+        saveGameBtn.setEnabled(false);
     }
     
     public void loadPanel() {
@@ -48,7 +49,6 @@ public class GameFrame extends javax.swing.JFrame {
         game = new Game();
         playerModePanel = new GamePanel(game);
         gamePanel.add(playerModePanel);
-        
         panelEngimonConfig();
     }
     
@@ -57,7 +57,6 @@ public class GameFrame extends javax.swing.JFrame {
         game = new Game(true);
         playerModePanel = new GamePanel(game);
         gamePanel.add(playerModePanel);
-        
         panelEngimonConfig();
     }
     
@@ -687,6 +686,9 @@ public class GameFrame extends javax.swing.JFrame {
     private void exitGameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitGameButtonActionPerformed
         // TODO add your handling code here:
         newGameButton.setEnabled(running);
+        newGameButton.setEnabled(true);
+        loadGameBtn.setEnabled(true);
+        saveGameBtn.setEnabled(true);
         exitGameButton.setEnabled(!running);
         running = false;
         game = null;
@@ -698,6 +700,8 @@ public class GameFrame extends javax.swing.JFrame {
     private void newGameButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newGameButtonActionPerformed
         // TODO add your handling code here:
         newGameButton.setEnabled(running);
+        loadGameBtn.setEnabled(false);
+        saveGameBtn.setEnabled(true);
         exitGameButton.setEnabled(!running);
         if(!running){
             newGame();
@@ -810,6 +814,9 @@ public class GameFrame extends javax.swing.JFrame {
     private void loadGameBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadGameBtnActionPerformed
         // TODO add your handling code here:
         newGameButton.setEnabled(running);
+        newGameButton.setEnabled(false);
+        loadGameBtn.setEnabled(false);
+        saveGameBtn.setEnabled(true);
         exitGameButton.setEnabled(!running);
         if(!running){
             loadGame();

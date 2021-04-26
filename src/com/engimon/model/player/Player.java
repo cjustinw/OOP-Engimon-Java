@@ -354,6 +354,8 @@ public class Player implements Cellable {
         }
         
         engimonInventory.add(E);
+        E1.setLevelAfterBreeding();
+        E2.setLevelAfterBreeding();
         return E;
     }
     

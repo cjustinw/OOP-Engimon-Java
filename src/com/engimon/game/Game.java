@@ -63,11 +63,9 @@ public class Game {
     public Game(boolean load) {
         gameState = State.RUNNING;
         map = new MapBoard();
-        player = new Player(new Point(16,11));
+        player = new Player(new Point(0,0));
         wildEngimon = new ArrayList<>();
         currentWildEngimon = null;
-        player.addEngimon(new Raikou(6, new Point(16,10)));
-        player.setActiveEngimon(player.getEngimonAtIndex(0));
 
         if (load) { 
             try {
