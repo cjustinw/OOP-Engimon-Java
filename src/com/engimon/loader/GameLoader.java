@@ -109,7 +109,7 @@ public class GameLoader {
         player.setActiveEngimon(player.getEngimonAtIndex(activeIndex));
     }
 
-    private Engimon loadEngimon() throws IOException {
+    public Engimon loadEngimon() throws IOException {
         reader.readLine();
 
         int id = Integer.parseInt(reader.readLine());
@@ -162,6 +162,10 @@ public class GameLoader {
         assert skill.getNumOfItem() == numOfItem; // biar lebih yakin
 
         return skill;
+    }
+
+    public String loadLine() throws IOException {
+        return reader.readLine();
     }
 
     // Driver for gameloader

@@ -6,14 +6,15 @@
 package com.engimon.game;
 
 import com.engimon.loader.GameLoader;
-import com.engimon.model.engimon.WildEngimon;
 import com.engimon.model.engimon.CreateEngimon;
 import com.engimon.model.engimon.Engimon;
-import com.engimon.model.engimon.species.*;
+import com.engimon.model.engimon.WildEngimon;
+import com.engimon.model.engimon.species.Raikou;
 import com.engimon.model.map.CellType;
 import com.engimon.model.map.MapBoard;
 import com.engimon.model.player.Player;
-import java.awt.Point;
+
+import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -249,5 +250,20 @@ public class Game {
         }
 
         pauseWildEngimonMovement(false);
+    }
+
+    public void load() throws IOException {
+
+        GameLoader gl = new GameLoader(player);
+
+        gl.load();
+
+        int countWild = Integer.parseInt(gl.loadLine());
+
+        for (int i = 0; i < countWild; i++) {
+            Engimon engimon = gl.loadEngimon();
+            int speed = Integer.parseInt(gl.loadLine());
+            wildEngimon.add(new WildEngimon(engimon, map, speed));
+        }
     }
 }
